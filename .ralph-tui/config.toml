@@ -3,10 +3,11 @@
 # See: ralph-tui config help
 
 configVersion = "2.1"
-tracker = "json"
+tracker = "beads-rust"
 agent = "claude"
 maxIterations = 10
 autoCommit = false
 
 [trackerOptions]
+epicId = "tiendexApp-sfb"
 [agentOptions]
