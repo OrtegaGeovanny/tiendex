@@ -11,7 +11,31 @@ after each iteration and it's included in prompts for context.
 - **Security Rules**: Use helper functions in Firestore rules for cleaner, more maintainable permissions
 - **Type Organization**: Separate types (types.ts) from operations (customers.ts) for better maintainability
 - **Auth Context Pattern**: Use React Context with onAuthStateChanged for centralized auth state management across Next.js App Router
+- **Landing Page Pattern**: Use server components for static landing pages with Tailwind CSS for responsive design. Break sections into focused components for maintainability.
 
+---
+
+## 2025-02-13 - tiendexApp-sfb.8
+- Implemented pricing section for landing page with clear heading and value proposition
+- Added "Gratis durante Beta" badge prominently displayed
+- Created CTA button for early access ("Comenzar Gratis")
+- Designed clean, minimalist layout with gradient card design
+- Made fully responsive with mobile-first approach using Tailwind breakpoints
+- Included feature list with checkmarks highlighting all included capabilities
+- Added upcoming premium plans teaser at bottom
+- Files created/modified: app/page.tsx
+- All acceptance criteria met: clear heading, beta messaging, CTA, clean design, mobile-friendly
+- npm run typecheck passes
+- npm run lint passes
+- **Learnings:**
+  - Landing page is a server component (no "use client" needed) since it's static content
+  - Tailwind responsive breakpoints (sm:, lg:) enable mobile-first design without complex media queries
+  - Use flex items-start gap-3 for aligned list items with icons
+  - Inline SVG icons work well without external icon libraries for simple cases
+  - Gradient backgrounds (bg-gradient-to-br) add visual depth while maintaining clean design
+  - Button states (hover:bg-blue-700) provide important user feedback
+  - Centered layout with max-w containers ensures optimal readability across devices
+  - Spanish language used throughout to match target market (Latin America)
 ---
 
 ## 2025-02-13 - tiendexApp-sfb.10
