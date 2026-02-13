@@ -3,8 +3,8 @@
 # See: ralph-tui config help
 
 configVersion = "2.1"
-tracker = "beads-rust"
-agent = "claude"
+tracker = "beads"
+agent = "opencode"
 maxIterations = 10
 autoCommit = false
 
