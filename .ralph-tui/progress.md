@@ -115,3 +115,33 @@ after each iteration and it's included in prompts for context.
 - Navigation Pattern: ArrowLeft button with window.history.back() for consistent back navigation
 
 ---
+
+## 2025-02-13 - tiendexApp-sfb.16
+- Implemented Product List View at /dashboard/products
+- Created mobile-optimized product list with responsive grid layout (1 col mobile, 2 cols tablet, 3 cols desktop)
+- Added real-time search/filter functionality by product name
+- Implemented "Add Product" button that navigates to add product form
+- Product cards show name, price, and edit indicator
+- Tap/click on product card navigates to edit form (/dashboard/products/[id]/edit)
+- Empty state with icon, message, and call-to-action button when no products exist
+- Loading state with centered spinner while fetching products
+- Large touch targets and clear CTAs for mobile optimization
+
+**Files changed:**
+- app/dashboard/products/page.tsx - New product list page
+
+**Learnings:**
+- Search functionality should filter the array client-side for immediate feedback on small datasets
+- Responsive grid layouts (grid-cols-1 sm:grid-cols-2 lg:grid-cols-3) work well for card-based lists
+- Empty states should provide clear guidance and next steps for users
+- Using button elements for cards makes them naturally tappable on mobile with built-in accessibility
+- Package icon from lucide-react provides clear visual cue for inventory-related empty states
+- TypeScript requires explicit type assertion (uid as string) even after null check due to strict null checking
+
+**Patterns discovered:**
+- List/Grid View Pattern: Use responsive grid with large touch targets, show key info (name, price) on cards, use Edit icon for affordance
+- Search Pattern: Client-side array filtering with lowercase comparison for case-insensitive search
+- Empty State Pattern: Icon + message + primary CTA button to guide users to take action
+- Card Navigation Pattern: Button-wrapped cards that navigate on click with visual indicators (Edit icon)
+
+---
