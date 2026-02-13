@@ -71,6 +71,27 @@ export async function getCustomersByName(
   }
 }
 
+export async function getCustomersWithDebt(
+  storeId: string,
+  threshold: number = 0
+): Promise<Customer[]> {
+  try {
+    const customersRef = collection(db, `stores/${storeId}/customers`);
+    const q = query(customersRef, where("totalDebt", ">", threshold));
+    const querySnapshot = await getDocs(q);
+
+    const customers: Customer[] = [];
+    querySnapshot.forEach((doc) => {
+      customers.push({ id: doc.id, ...doc.data() } as Customer);
+    });
+
+    return customers;
+  } catch (error) {
+    console.error("Error fetching customers with debt:", error);
+    throw new Error(getFirebaseErrorMessage(error));
+  }
+}
+
 export async function createCustomer(
   storeId: string,
   input: CreateCustomerInput

@@ -58,3 +58,21 @@ export interface CreateTransactionInput {
   totalAmount: number;
   type: "credit" | "payment";
 }
+
+export interface Notification {
+  id: string;
+  customerId: string;
+  customerName: string;
+  debtAmount: number;
+  message: string;
+  read: boolean;
+  dismissed: boolean;
+  createdAt: Timestamp;
+}
+
+export interface CreateNotificationInput {
+  customerId: string;
+  customerName: string;
+  debtAmount: number;
+  message: string;
+}

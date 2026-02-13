@@ -17,6 +17,9 @@ after each iteration and it's included in prompts for context.
 - **Responsive Grid Layout**: Use Tailwind grid with responsive classes (grid-cols-1 md:grid-cols-2 lg:grid-cols-4) for adaptive layouts
 - **CRUD Form Pattern**: Separate add and edit pages that share similar form structure and validation with large touch targets (py-4), text-lg inputs, and stacked layouts for mobile-first design
 - **Success/Error Feedback Pattern**: Use colored banners (green for success, red for errors) with icons (Check, X) and action buttons for clear user feedback
+- **Notification Panel Pattern**: Overlay modal with backdrop, header with close button, scrollable content list, empty state with icon, and action buttons per item
+- **Badge Counter Pattern**: Bell icon with badge showing count (9+ for >9 items) in top-right corner using absolute positioning
+- **React useCallback Pattern**: Memoize callback functions to prevent unnecessary re-renders and fix ESLint exhaustive-deps warnings
 
 ---
 
@@ -46,6 +49,44 @@ after each iteration and it's included in prompts for context.
   - Hero section pattern: Two-column layout on desktop, stacked on mobile with text on left and visual on right
   - Animation pattern: Use initial, animate, and transition props with delay for staggered entrance effects
   - CTA ...
+
+---
+
+## 2025-02-13 - tiendexApp-sfb.25
+- Implemented in-app notifications for overdue payments with Firebase Firestore backend
+- Created Notification type and interfaces in lib/firebase/types.ts
+- Created lib/firebase/notifications.ts with full CRUD operations (create, get, markAsRead, dismiss, delete)
+- Added getCustomersWithDebt function to lib/firebase/customers.ts to find customers with outstanding balances
+- Created NotificationPanel component with mobile-optimized overlay design
+- Created NotificationBadge component showing unread count with bell icon
+- Created customer detail page at app/dashboard/customers/[id]/page.tsx for navigation from notifications
+- Updated dashboard header to include notification badge with click-to-open panel
+- Implemented automatic notification creation for customers with debt > threshold
+- Notifications persist until dismissed, show customer name, message, and debt amount
+- Clicking notification navigates to customer detail page and marks as read
+- Dismiss button removes notification from panel
+
+**Files changed:**
+- lib/firebase/types.ts - Added Notification and CreateNotificationInput interfaces
+- lib/firebase/notifications.ts - New file with notification operations
+- lib/firebase/customers.ts - Added getCustomersWithDebt function
+- components/NotificationPanel.tsx - New notification panel and badge components
+- app/dashboard/page.tsx - Added notification integration to dashboard header
+- app/dashboard/customers/[id]/page.tsx - New customer detail page
+
+**Learnings:**
+- useCallback is essential for fixing React Hook exhaustive-deps warnings when callbacks are used in useEffect dependencies
+- Notification system should prevent duplicate notifications by checking existing ones before creating new ones
+- Mobile-first overlay design requires fixed positioning, backdrop, and scrollable content areas
+- Badge counter needs special handling for counts > 9 (show "9+")
+- Customer detail page needs loading and error states for good UX
+- Notifications should persist in Firestore until explicitly dismissed to avoid re-creating them
+- Navigation from notification should both mark as read and close the panel
+
+**Patterns discovered:**
+- Notification Panel Pattern: Overlay modal with backdrop, header with close button, scrollable content list, empty state with icon, and action buttons per item
+- Badge Counter Pattern: Bell icon with badge showing count (9+ for >9 items) in top-right corner using absolute positioning
+- React useCallback Pattern: Memoize callback functions to prevent unnecessary re-renders and fix ESLint exhaustive-deps warnings
 
 ---
 
