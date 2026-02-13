@@ -41,6 +41,7 @@ This document provides step-by-step instructions for setting up Firebase for Tie
 6. Deploy rules: `firebase deploy --only firestore:rules`
 
 Or manually:
+
 1. Go to **Build** > **Firestore Database** > **Rules** tab
 2. Copy the contents of `firestore.rules`
 3. Paste into the Firebase Console rules editor
@@ -57,11 +58,13 @@ Or manually:
 ## Step 6: Configure Environment Variables
 
 1. Copy `.env.example` to `.env.local`:
+
    ```bash
    cp .env.example .env.local
    ```
 
 2. Fill in your Firebase configuration values:
+
    ```env
    NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key_here
    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
@@ -102,17 +105,21 @@ stores/
 ## Troubleshooting
 
 ### "Firebase configuration is incomplete"
+
 - Check that all environment variables are set in `.env.local`
 - Restart the development server after adding environment variables
 
 ### "permission-denied" errors
+
 - Ensure Firestore security rules are deployed
 - Check that you're logged in with the correct user
 
 ### Authentication not working
+
 - Verify Email/Password provider is enabled in Firebase Console
 - Check that your API key is correct
 
 ### Database not accessible
+
 - Ensure Firestore is created (not Realtime Database)
 - Check that you're in the correct region/location

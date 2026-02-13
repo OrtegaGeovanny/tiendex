@@ -6,46 +6,46 @@ import {
   query,
   where,
   orderBy,
-} from "firebase/firestore";
-import { getFirebaseFirestore } from "./client";
-import { getFirebaseErrorMessage } from "./firestore";
-import { Product, CreateProductInput } from "./types";
+} from 'firebase/firestore'
+import { getFirebaseFirestore } from './client'
+import { getFirebaseErrorMessage } from './firestore'
+import { Product, CreateProductInput } from './types'
 
-const db = getFirebaseFirestore();
+const db = getFirebaseFirestore()
 
 export async function getProduct(
   storeId: string,
   productId: string
 ): Promise<Product | null> {
   try {
-    const docRef = doc(db, `stores/${storeId}/products`, productId);
-    const docSnap = await getDoc(docRef);
+    const docRef = doc(db, `stores/${storeId}/products`, productId)
+    const docSnap = await getDoc(docRef)
 
     if (docSnap.exists()) {
-      return { id: docSnap.id, ...docSnap.data() } as Product;
+      return { id: docSnap.id, ...docSnap.data() } as Product
     }
-    return null;
+    return null
   } catch (error) {
-    console.error("Error fetching product:", error);
-    throw new Error(getFirebaseErrorMessage(error));
+    console.error('Error fetching product:', error)
+    throw new Error(getFirebaseErrorMessage(error))
   }
 }
 
 export async function getProducts(storeId: string): Promise<Product[]> {
   try {
-    const productsRef = collection(db, `stores/${storeId}/products`);
-    const q = query(productsRef, orderBy("name", "asc"));
-    const querySnapshot = await getDocs(q);
+    const productsRef = collection(db, `stores/${storeId}/products`)
+    const q = query(productsRef, orderBy('name', 'asc'))
+    const querySnapshot = await getDocs(q)
 
-    const products: Product[] = [];
-    querySnapshot.forEach((doc) => {
-      products.push({ id: doc.id, ...doc.data() } as Product);
-    });
+    const products: Product[] = []
+    querySnapshot.forEach(doc => {
+      products.push({ id: doc.id, ...doc.data() } as Product)
+    })
 
-    return products;
+    return products
   } catch (error) {
-    console.error("Error fetching products:", error);
-    throw new Error(getFirebaseErrorMessage(error));
+    console.error('Error fetching products:', error)
+    throw new Error(getFirebaseErrorMessage(error))
   }
 }
 
@@ -54,22 +54,22 @@ export async function searchProductsByName(
   searchTerm: string
 ): Promise<Product[]> {
   try {
-    const productsRef = collection(db, `stores/${storeId}/products`);
+    const productsRef = collection(db, `stores/${storeId}/products`)
     const q = query(
       productsRef,
-      where("name", ">=", searchTerm.toUpperCase()),
-      where("name", "<=", searchTerm.toUpperCase() + "\uf8ff")
-    );
-    const querySnapshot = await getDocs(q);
+      where('name', '>=', searchTerm.toUpperCase()),
+      where('name', '<=', searchTerm.toUpperCase() + '\uf8ff')
+    )
+    const querySnapshot = await getDocs(q)
 
-    const products: Product[] = [];
-    querySnapshot.forEach((doc) => {
-      products.push({ id: doc.id, ...doc.data() } as Product);
-    });
+    const products: Product[] = []
+    querySnapshot.forEach(doc => {
+      products.push({ id: doc.id, ...doc.data() } as Product)
+    })
 
-    return products;
+    return products
   } catch (error) {
-    console.error("Error searching products:", error);
-    throw new Error(getFirebaseErrorMessage(error));
+    console.error('Error searching products:', error)
+    throw new Error(getFirebaseErrorMessage(error))
   }
 }

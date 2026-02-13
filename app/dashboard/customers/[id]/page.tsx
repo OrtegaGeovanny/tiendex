@@ -1,52 +1,52 @@
-"use client";
+'use client'
 
-import { useEffect, useState, useCallback } from "react";
-import { useParams } from "next/navigation";
-import { ArrowLeft, Phone, DollarSign } from "lucide-react";
-import { getCustomer } from "@/lib/firebase/customers";
-import { useAuth } from "@/lib/contexts/AuthContext";
-import { Customer } from "@/lib/firebase/types";
+import { useEffect, useState, useCallback } from 'react'
+import { useParams } from 'next/navigation'
+import { ArrowLeft, Phone, DollarSign } from 'lucide-react'
+import { getCustomer } from '@/lib/firebase/customers'
+import { useAuth } from '@/lib/contexts/AuthContext'
+import { Customer } from '@/lib/firebase/types'
 
 export default function CustomerDetailPage() {
-  const { user } = useAuth();
-  const params = useParams();
-  const customerId = params.id as string;
-  const [customer, setCustomer] = useState<Customer | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { user } = useAuth()
+  const params = useParams()
+  const customerId = params.id as string
+  const [customer, setCustomer] = useState<Customer | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   const fetchCustomer = useCallback(async () => {
-    if (!user || !customerId) return;
-    setLoading(true);
-    setError(null);
+    if (!user || !customerId) return
+    setLoading(true)
+    setError(null)
     try {
-      const data = await getCustomer(user.uid, customerId);
+      const data = await getCustomer(user.uid, customerId)
       if (data) {
-        setCustomer(data);
+        setCustomer(data)
       } else {
-        setError("Customer not found");
+        setError('Customer not found')
       }
     } catch (err) {
-      setError("Failed to load customer details");
+      setError('Failed to load customer details')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  }, [user, customerId]);
+  }, [user, customerId])
 
   useEffect(() => {
-    fetchCustomer();
-  }, [fetchCustomer]);
+    fetchCustomer()
+  }, [fetchCustomer])
 
   const goBack = () => {
-    window.history.back();
-  };
+    window.history.back()
+  }
 
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
       </div>
-    );
+    )
   }
 
   if (error) {
@@ -73,7 +73,7 @@ export default function CustomerDetailPage() {
           </div>
         </main>
       </div>
-    );
+    )
   }
 
   return (
@@ -126,28 +126,34 @@ export default function CustomerDetailPage() {
                   </label>
                   <div className="flex items-center gap-2">
                     <DollarSign className="w-5 h-5 text-gray-400" />
-                    <p className={`text-lg font-bold ${
-                      customer?.totalDebt && customer.totalDebt > 0
-                        ? "text-red-600"
-                        : "text-green-600"
-                    }`}>
-                      ${customer?.totalDebt?.toFixed(2) || "0.00"}
+                    <p
+                      className={`text-lg font-bold ${
+                        customer?.totalDebt && customer.totalDebt > 0
+                          ? 'text-red-600'
+                          : 'text-green-600'
+                      }`}
+                    >
+                      ${customer?.totalDebt?.toFixed(2) || '0.00'}
                     </p>
                   </div>
                 </div>
 
                 <div className="pt-4 border-t">
                   <p className="text-sm text-gray-500">
-                    Created:{" "}
+                    Created:{' '}
                     {customer?.createdAt
-                      ? new Date(customer.createdAt.seconds * 1000).toLocaleDateString()
-                      : "N/A"}
+                      ? new Date(
+                          customer.createdAt.seconds * 1000
+                        ).toLocaleDateString()
+                      : 'N/A'}
                   </p>
                   <p className="text-sm text-gray-500">
-                    Last updated:{" "}
+                    Last updated:{' '}
                     {customer?.updatedAt
-                      ? new Date(customer.updatedAt.seconds * 1000).toLocaleDateString()
-                      : "N/A"}
+                      ? new Date(
+                          customer.updatedAt.seconds * 1000
+                        ).toLocaleDateString()
+                      : 'N/A'}
                   </p>
                 </div>
               </div>
@@ -156,5 +162,5 @@ export default function CustomerDetailPage() {
         </div>
       </main>
     </div>
-  );
+  )
 }

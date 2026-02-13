@@ -8,45 +8,45 @@ import {
   query,
   where,
   Timestamp,
-} from "firebase/firestore";
-import { getFirebaseFirestore } from "./client";
-import { getFirebaseErrorMessage } from "./firestore";
-import { Customer, CreateCustomerInput, UpdateCustomerInput } from "./types";
+} from 'firebase/firestore'
+import { getFirebaseFirestore } from './client'
+import { getFirebaseErrorMessage } from './firestore'
+import { Customer, CreateCustomerInput, UpdateCustomerInput } from './types'
 
-const db = getFirebaseFirestore();
+const db = getFirebaseFirestore()
 
 export async function getCustomer(
   storeId: string,
   customerId: string
 ): Promise<Customer | null> {
   try {
-    const docRef = doc(db, `stores/${storeId}/customers`, customerId);
-    const docSnap = await getDoc(docRef);
+    const docRef = doc(db, `stores/${storeId}/customers`, customerId)
+    const docSnap = await getDoc(docRef)
 
     if (docSnap.exists()) {
-      return { id: docSnap.id, ...docSnap.data() } as Customer;
+      return { id: docSnap.id, ...docSnap.data() } as Customer
     }
-    return null;
+    return null
   } catch (error) {
-    console.error("Error fetching customer:", error);
-    throw new Error(getFirebaseErrorMessage(error));
+    console.error('Error fetching customer:', error)
+    throw new Error(getFirebaseErrorMessage(error))
   }
 }
 
 export async function getCustomers(storeId: string): Promise<Customer[]> {
   try {
-    const customersRef = collection(db, `stores/${storeId}/customers`);
-    const querySnapshot = await getDocs(customersRef);
+    const customersRef = collection(db, `stores/${storeId}/customers`)
+    const querySnapshot = await getDocs(customersRef)
 
-    const customers: Customer[] = [];
-    querySnapshot.forEach((doc) => {
-      customers.push({ id: doc.id, ...doc.data() } as Customer);
-    });
+    const customers: Customer[] = []
+    querySnapshot.forEach(doc => {
+      customers.push({ id: doc.id, ...doc.data() } as Customer)
+    })
 
-    return customers;
+    return customers
   } catch (error) {
-    console.error("Error fetching customers:", error);
-    throw new Error(getFirebaseErrorMessage(error));
+    console.error('Error fetching customers:', error)
+    throw new Error(getFirebaseErrorMessage(error))
   }
 }
 
@@ -55,19 +55,19 @@ export async function getCustomersByName(
   name: string
 ): Promise<Customer[]> {
   try {
-    const customersRef = collection(db, `stores/${storeId}/customers`);
-    const q = query(customersRef, where("name", "==", name));
-    const querySnapshot = await getDocs(q);
+    const customersRef = collection(db, `stores/${storeId}/customers`)
+    const q = query(customersRef, where('name', '==', name))
+    const querySnapshot = await getDocs(q)
 
-    const customers: Customer[] = [];
-    querySnapshot.forEach((doc) => {
-      customers.push({ id: doc.id, ...doc.data() } as Customer);
-    });
+    const customers: Customer[] = []
+    querySnapshot.forEach(doc => {
+      customers.push({ id: doc.id, ...doc.data() } as Customer)
+    })
 
-    return customers;
+    return customers
   } catch (error) {
-    console.error("Error fetching customers by name:", error);
-    throw new Error(getFirebaseErrorMessage(error));
+    console.error('Error fetching customers by name:', error)
+    throw new Error(getFirebaseErrorMessage(error))
   }
 }
 
@@ -76,19 +76,19 @@ export async function getCustomersWithDebt(
   threshold: number = 0
 ): Promise<Customer[]> {
   try {
-    const customersRef = collection(db, `stores/${storeId}/customers`);
-    const q = query(customersRef, where("totalDebt", ">", threshold));
-    const querySnapshot = await getDocs(q);
+    const customersRef = collection(db, `stores/${storeId}/customers`)
+    const q = query(customersRef, where('totalDebt', '>', threshold))
+    const querySnapshot = await getDocs(q)
 
-    const customers: Customer[] = [];
-    querySnapshot.forEach((doc) => {
-      customers.push({ id: doc.id, ...doc.data() } as Customer);
-    });
+    const customers: Customer[] = []
+    querySnapshot.forEach(doc => {
+      customers.push({ id: doc.id, ...doc.data() } as Customer)
+    })
 
-    return customers;
+    return customers
   } catch (error) {
-    console.error("Error fetching customers with debt:", error);
-    throw new Error(getFirebaseErrorMessage(error));
+    console.error('Error fetching customers with debt:', error)
+    throw new Error(getFirebaseErrorMessage(error))
   }
 }
 
@@ -97,18 +97,18 @@ export async function createCustomer(
   input: CreateCustomerInput
 ): Promise<string> {
   try {
-    const customersRef = collection(db, `stores/${storeId}/customers`);
+    const customersRef = collection(db, `stores/${storeId}/customers`)
     const docRef = await addDoc(customersRef, {
       ...input,
       totalDebt: input.totalDebt || 0,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
-    });
+    })
 
-    return docRef.id;
+    return docRef.id
   } catch (error) {
-    console.error("Error creating customer:", error);
-    throw new Error(getFirebaseErrorMessage(error));
+    console.error('Error creating customer:', error)
+    throw new Error(getFirebaseErrorMessage(error))
   }
 }
 
@@ -118,13 +118,13 @@ export async function updateCustomer(
   input: UpdateCustomerInput
 ): Promise<void> {
   try {
-    const customerRef = doc(db, `stores/${storeId}/customers`, customerId);
+    const customerRef = doc(db, `stores/${storeId}/customers`, customerId)
     await updateDoc(customerRef, {
       ...input,
       updatedAt: Timestamp.now(),
-    });
+    })
   } catch (error) {
-    console.error("Error updating customer:", error);
-    throw new Error(getFirebaseErrorMessage(error));
+    console.error('Error updating customer:', error)
+    throw new Error(getFirebaseErrorMessage(error))
   }
 }

@@ -1,67 +1,75 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/lib/contexts/AuthContext";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { createCustomer } from "@/lib/firebase/customers";
-import { ArrowLeft, Check, X } from "lucide-react";
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/lib/contexts/AuthContext'
+import { ProtectedRoute } from '@/components/ProtectedRoute'
+import { createCustomer } from '@/lib/firebase/customers'
+import { ArrowLeft, Check, X } from 'lucide-react'
 
-function CustomerFormContent({ initialData, isEdit }: { initialData?: { id: string; name: string; phone?: string | null }; isEdit?: boolean }) {
-  const { user } = useAuth();
-  const router = useRouter();
-  const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [name, setName] = useState(initialData?.name || "");
-  const [phone, setPhone] = useState(initialData?.phone || "");
+function CustomerFormContent({
+  initialData,
+  isEdit,
+}: {
+  initialData?: { id: string; name: string; phone?: string | null }
+  isEdit?: boolean
+}) {
+  const { user } = useAuth()
+  const router = useRouter()
+  const [submitting, setSubmitting] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [name, setName] = useState(initialData?.name || '')
+  const [phone, setPhone] = useState(initialData?.phone || '')
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
+    e.preventDefault()
+    setError(null)
 
     if (!name.trim()) {
-      setError("Name is required");
-      return;
+      setError('Name is required')
+      return
     }
 
-    if (!user) return;
+    if (!user) return
 
-    setSubmitting(true);
+    setSubmitting(true)
     try {
       if (isEdit && initialData) {
-        const { updateCustomer } = await import("@/lib/firebase/customers");
+        const { updateCustomer } = await import('@/lib/firebase/customers')
         await updateCustomer(user.uid, initialData.id, {
           name: name.trim(),
           phone: phone.trim() || null,
-        });
+        })
       } else {
         await createCustomer(user.uid, {
           name: name.trim(),
           phone: phone.trim() || null,
-        });
+        })
       }
-      setSuccess(true);
+      setSuccess(true)
     } catch (err) {
-      setError("Failed to save customer");
-      console.error(err);
+      setError('Failed to save customer')
+      console.error(err)
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
-  };
+  }
 
   const handleCancel = () => {
-    router.push("/dashboard");
-  };
+    router.push('/dashboard')
+  }
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900">
-          {isEdit ? "Edit Customer" : "Add Customer"}
+          {isEdit ? 'Edit Customer' : 'Add Customer'}
         </h1>
         <p className="mt-2 text-gray-600">
-          {isEdit ? "Update customer information" : "Add a new customer to your store"}
+          {isEdit
+            ? 'Update customer information'
+            : 'Add a new customer to your store'}
         </p>
       </div>
 
@@ -78,10 +86,10 @@ function CustomerFormContent({ initialData, isEdit }: { initialData?: { id: stri
             <Check className="h-8 w-8 text-green-600" />
           </div>
           <h3 className="text-lg font-semibold text-green-900 mb-2">
-            {isEdit ? "Customer Updated!" : "Customer Added!"}
+            {isEdit ? 'Customer Updated!' : 'Customer Added!'}
           </h3>
           <p className="text-green-700 mb-6">
-            {name} has been {isEdit ? "updated" : "added"} to your store
+            {name} has been {isEdit ? 'updated' : 'added'} to your store
           </p>
           <button
             onClick={handleCancel}
@@ -94,14 +102,17 @@ function CustomerFormContent({ initialData, isEdit }: { initialData?: { id: stri
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="bg-white rounded-lg shadow p-6 space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Name *
               </label>
               <input
                 id="name"
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={e => setName(e.target.value)}
                 placeholder="Enter customer name"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
                 required
@@ -109,14 +120,17 @@ function CustomerFormContent({ initialData, isEdit }: { initialData?: { id: stri
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Phone Number
               </label>
               <input
                 id="phone"
                 type="tel"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={e => setPhone(e.target.value)}
                 placeholder="Enter phone number (optional)"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
               />
@@ -129,7 +143,7 @@ function CustomerFormContent({ initialData, isEdit }: { initialData?: { id: stri
               disabled={submitting || !name.trim()}
               className="flex-1 py-4 px-6 border border-transparent text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {submitting ? "Saving..." : "Save Customer"}
+              {submitting ? 'Saving...' : 'Save Customer'}
             </button>
             <button
               type="button"
@@ -142,7 +156,7 @@ function CustomerFormContent({ initialData, isEdit }: { initialData?: { id: stri
         </form>
       )}
     </div>
-  );
+  )
 }
 
 export default function NewCustomerPage() {
@@ -172,5 +186,5 @@ export default function NewCustomerPage() {
         </main>
       </div>
     </ProtectedRoute>
-  );
+  )
 }

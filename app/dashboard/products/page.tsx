@@ -1,56 +1,56 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/lib/contexts/AuthContext";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { getProducts } from "@/lib/firebase/products";
-import { Product } from "@/lib/firebase/types";
-import { Search, Plus, Package, Edit } from "lucide-react";
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/lib/contexts/AuthContext'
+import { ProtectedRoute } from '@/components/ProtectedRoute'
+import { getProducts } from '@/lib/firebase/products'
+import { Product } from '@/lib/firebase/types'
+import { Search, Plus, Package, Edit } from 'lucide-react'
 
 function ProductsContent() {
-  const { user } = useAuth();
-  const router = useRouter();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
+  const { user } = useAuth()
+  const router = useRouter()
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState('')
 
-  const filteredProducts = products.filter((p) =>
+  const filteredProducts = products.filter(p =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  )
 
   useEffect(() => {
-    const uid = user?.uid;
-    if (!uid) return;
+    const uid = user?.uid
+    if (!uid) return
 
     async function loadProducts() {
       try {
-        const productsData = await getProducts(uid as string);
-        setProducts(productsData);
+        const productsData = await getProducts(uid as string)
+        setProducts(productsData)
       } catch (err) {
-        console.error("Failed to load products:", err);
+        console.error('Failed to load products:', err)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
 
-    loadProducts();
-  }, [user]);
+    loadProducts()
+  }, [user])
 
   const handleProductClick = (productId: string) => {
-    router.push(`/dashboard/products/${productId}/edit`);
-  };
+    router.push(`/dashboard/products/${productId}/edit`)
+  }
 
   const handleAddProduct = () => {
-    router.push("/dashboard/products/new");
-  };
+    router.push('/dashboard/products/new')
+  }
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
       </div>
-    );
+    )
   }
 
   return (
@@ -58,7 +58,9 @@ function ProductsContent() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Products</h1>
-          <p className="mt-2 text-gray-600">Manage your store&apos;s inventory</p>
+          <p className="mt-2 text-gray-600">
+            Manage your store&apos;s inventory
+          </p>
         </div>
         <button
           onClick={handleAddProduct}
@@ -76,7 +78,7 @@ function ProductsContent() {
         <input
           type="text"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={e => setSearchTerm(e.target.value)}
           placeholder="Search products..."
           className="pl-10 block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
         />
@@ -88,12 +90,12 @@ function ProductsContent() {
             <Package className="h-8 w-8 text-gray-400" />
           </div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            {searchTerm ? "No products found" : "No products yet"}
+            {searchTerm ? 'No products found' : 'No products yet'}
           </h3>
           <p className="text-gray-600 mb-6">
             {searchTerm
-              ? "Try a different search term"
-              : "Get started by adding your first product"}
+              ? 'Try a different search term'
+              : 'Get started by adding your first product'}
           </p>
           {!searchTerm && (
             <button
@@ -107,7 +109,7 @@ function ProductsContent() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredProducts.map((product) => (
+          {filteredProducts.map(product => (
             <button
               key={product.id}
               onClick={() => handleProductClick(product.id)}
@@ -122,15 +124,13 @@ function ProductsContent() {
               <p className="text-2xl font-bold text-indigo-600">
                 ${product.price.toFixed(2)}
               </p>
-              <p className="text-sm text-gray-500 mt-1">
-                Tap to edit details
-              </p>
+              <p className="text-sm text-gray-500 mt-1">Tap to edit details</p>
             </button>
           ))}
         </div>
       )}
     </div>
-  );
+  )
 }
 
 export default function ProductsPage() {
@@ -160,5 +160,5 @@ export default function ProductsPage() {
         </main>
       </div>
     </ProtectedRoute>
-  );
+  )
 }

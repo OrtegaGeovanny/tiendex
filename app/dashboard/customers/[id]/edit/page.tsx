@@ -1,85 +1,85 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
-import { useAuth } from "@/lib/contexts/AuthContext";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { getCustomer } from "@/lib/firebase/customers";
-import { ArrowLeft, Check, X } from "lucide-react";
+import { useState, useEffect } from 'react'
+import { useRouter, useParams } from 'next/navigation'
+import { useAuth } from '@/lib/contexts/AuthContext'
+import { ProtectedRoute } from '@/components/ProtectedRoute'
+import { getCustomer } from '@/lib/firebase/customers'
+import { ArrowLeft, Check, X } from 'lucide-react'
 
 function EditCustomerFormContent() {
-  const { user } = useAuth();
-  const router = useRouter();
-  const params = useParams();
-  const customerId = params.id as string;
-  const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const { user } = useAuth()
+  const router = useRouter()
+  const params = useParams()
+  const customerId = params.id as string
+  const [loading, setLoading] = useState(true)
+  const [submitting, setSubmitting] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
 
   useEffect(() => {
-    const uid = user?.uid;
-    if (!uid) return;
+    const uid = user?.uid
+    if (!uid) return
 
     async function loadCustomer() {
       try {
-        const customer = await getCustomer(uid as string, customerId);
+        const customer = await getCustomer(uid as string, customerId)
         if (customer) {
-          setName(customer.name);
-          setPhone(customer.phone || "");
+          setName(customer.name)
+          setPhone(customer.phone || '')
         } else {
-          setError("Customer not found");
+          setError('Customer not found')
         }
       } catch (err) {
-        setError("Failed to load customer");
-        console.error(err);
+        setError('Failed to load customer')
+        console.error(err)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
 
-    loadCustomer();
-  }, [user, customerId]);
+    loadCustomer()
+  }, [user, customerId])
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
+    e.preventDefault()
+    setError(null)
 
     if (!name.trim()) {
-      setError("Name is required");
-      return;
+      setError('Name is required')
+      return
     }
 
-    if (!user) return;
+    if (!user) return
 
-    setSubmitting(true);
+    setSubmitting(true)
     try {
-      const { updateCustomer } = await import("@/lib/firebase/customers");
+      const { updateCustomer } = await import('@/lib/firebase/customers')
       await updateCustomer(user.uid, customerId, {
         name: name.trim(),
         phone: phone.trim() || null,
-      });
-      setSuccess(true);
+      })
+      setSuccess(true)
     } catch (err) {
-      setError("Failed to save customer");
-      console.error(err);
+      setError('Failed to save customer')
+      console.error(err)
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
-  };
+  }
 
   const handleCancel = () => {
-    router.push("/dashboard");
-  };
+    router.push('/dashboard')
+  }
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
       </div>
-    );
+    )
   }
 
   return (
@@ -104,9 +104,7 @@ function EditCustomerFormContent() {
           <h3 className="text-lg font-semibold text-green-900 mb-2">
             Customer Updated!
           </h3>
-          <p className="text-green-700 mb-6">
-            {name} has been updated
-          </p>
+          <p className="text-green-700 mb-6">{name} has been updated</p>
           <button
             onClick={handleCancel}
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -118,14 +116,17 @@ function EditCustomerFormContent() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="bg-white rounded-lg shadow p-6 space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Name *
               </label>
               <input
                 id="name"
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={e => setName(e.target.value)}
                 placeholder="Enter customer name"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
                 required
@@ -133,14 +134,17 @@ function EditCustomerFormContent() {
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Phone Number
               </label>
               <input
                 id="phone"
                 type="tel"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={e => setPhone(e.target.value)}
                 placeholder="Enter phone number (optional)"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
               />
@@ -153,7 +157,7 @@ function EditCustomerFormContent() {
               disabled={submitting || !name.trim()}
               className="flex-1 py-4 px-6 border border-transparent text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {submitting ? "Saving..." : "Save Customer"}
+              {submitting ? 'Saving...' : 'Save Customer'}
             </button>
             <button
               type="button"
@@ -166,7 +170,7 @@ function EditCustomerFormContent() {
         </form>
       )}
     </div>
-  );
+  )
 }
 
 export default function EditCustomerPage() {
@@ -196,5 +200,5 @@ export default function EditCustomerPage() {
         </main>
       </div>
     </ProtectedRoute>
-  );
+  )
 }

@@ -1,71 +1,68 @@
-"use client";
+'use client'
 
-import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
-import { Bell, X, Check, User } from "lucide-react";
-import { getUnreadNotifications, markNotificationAsRead, dismissNotification } from "@/lib/firebase/notifications";
-import { useAuth } from "@/lib/contexts/AuthContext";
-import { Notification } from "@/lib/firebase/types";
+import { useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
+import { Bell, X, Check, User } from 'lucide-react'
+import {
+  getUnreadNotifications,
+  markNotificationAsRead,
+  dismissNotification,
+} from '@/lib/firebase/notifications'
+import { useAuth } from '@/lib/contexts/AuthContext'
+import { useNotification } from '@/lib/contexts/NotificationContext'
+import { Notification } from '@/lib/firebase/types'
 
 interface NotificationPanelProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen: boolean
+  onClose: () => void
 }
 
 export function NotificationPanel({ isOpen, onClose }: NotificationPanelProps) {
-  const { user } = useAuth();
-  const router = useRouter();
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [loading, setLoading] = useState(false);
+  const { user } = useAuth()
+  const router = useRouter()
+  const [notifications, setNotifications] = useState<Notification[]>([])
+  const [loading, setLoading] = useState(false)
 
   const fetchNotifications = useCallback(async () => {
-    if (!user) return;
-    setLoading(true);
+    if (!user) return
+    setLoading(true)
     try {
-      const unread = await getUnreadNotifications(user.uid);
-      setNotifications(unread);
+      const unread = await getUnreadNotifications(user.uid)
+      setNotifications(unread)
     } catch (error) {
-      console.error("Error fetching notifications:", error);
+      console.error('Error fetching notifications:', error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  }, [user]);
+  }, [user])
 
   useEffect(() => {
     if (isOpen && user) {
-      fetchNotifications();
+      fetchNotifications()
     }
-  }, [isOpen, user, fetchNotifications]);
+  }, [isOpen, user, fetchNotifications])
 
   const handleNotificationClick = async (notification: Notification) => {
-    await markNotificationAsRead(user!.uid, notification.id);
-    router.push(`/dashboard/customers/${notification.customerId}`);
-    onClose();
-  };
+    await markNotificationAsRead(user!.uid, notification.id)
+    router.push(`/dashboard/customers/${notification.customerId}`)
+    onClose()
+  }
 
-  const handleDismiss = async (
-    e: React.MouseEvent,
-    notificationId: string
-  ) => {
-    e.stopPropagation();
+  const handleDismiss = async (e: React.MouseEvent, notificationId: string) => {
+    e.stopPropagation()
     try {
-      await dismissNotification(user!.uid, notificationId);
-      setNotifications(
-        notifications.filter((n) => n.id !== notificationId)
-      );
+      await dismissNotification(user!.uid, notificationId)
+      setNotifications(notifications.filter(n => n.id !== notificationId))
     } catch (error) {
-      console.error("Error dismissing notification:", error);
+      console.error('Error dismissing notification:', error)
     }
-  };
+  }
 
-  if (!isOpen) return null;
+  if (!isOpen) return null
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-end pt-16 sm:pt-20 px-4 sm:px-6">
-      <div
-        className="fixed inset-0 bg-black bg-opacity-50"
-        onClick={onClose}
-      />
+      <div className="fixed inset-0 bg-black bg-opacity-50" onClick={onClose} />
       <div className="relative w-full max-w-md bg-white rounded-lg shadow-xl max-h-[80vh] overflow-hidden">
         <div className="flex items-center justify-between p-4 border-b">
           <h2 className="text-lg font-semibold text-gray-900">Notifications</h2>
@@ -89,7 +86,7 @@ export function NotificationPanel({ isOpen, onClose }: NotificationPanelProps) {
             </div>
           ) : (
             <div className="divide-y">
-              {notifications.map((notification) => (
+              {notifications.map(notification => (
                 <div
                   key={notification.id}
                   onClick={() => handleNotificationClick(notification)}
@@ -112,7 +109,7 @@ export function NotificationPanel({ isOpen, onClose }: NotificationPanelProps) {
                       </p>
                     </div>
                     <button
-                      onClick={(e) => handleDismiss(e, notification.id)}
+                      onClick={e => handleDismiss(e, notification.id)}
                       className="flex-shrink-0 p-1 hover:bg-gray-100 rounded-full transition-colors"
                       aria-label="Dismiss notification"
                     >
@@ -126,27 +123,35 @@ export function NotificationPanel({ isOpen, onClose }: NotificationPanelProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 interface NotificationBadgeProps {
-  unreadCount: number;
-  onClick: () => void;
+  unreadCount?: number
+  onClick?: () => void
 }
 
-export function NotificationBadge({ unreadCount, onClick }: NotificationBadgeProps) {
+export function NotificationBadge({
+  unreadCount,
+  onClick,
+}: NotificationBadgeProps) {
+  const { unreadCount: contextUnreadCount, openNotificationPanel } =
+    useNotification()
+  const count = unreadCount !== undefined ? unreadCount : contextUnreadCount
+  const handleClick = onClick || openNotificationPanel
+
   return (
     <button
-      onClick={onClick}
+      onClick={handleClick}
       className="relative p-2 hover:bg-gray-100 rounded-full transition-colors"
-      aria-label={`Notifications (${unreadCount} unread)`}
+      aria-label={`Notifications (${count} unread)`}
     >
       <Bell className="w-6 h-6 text-gray-600" />
-      {unreadCount > 0 && (
+      {count > 0 && (
         <span className="absolute top-1 right-1 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
-          {unreadCount > 9 ? "9+" : unreadCount}
+          {count > 9 ? '9+' : count}
         </span>
       )}
     </button>
-  );
+  )
 }

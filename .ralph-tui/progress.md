@@ -247,3 +247,74 @@ after each iteration and it's included in prompts for context.
 - Card Navigation Pattern: Button-wrapped cards that navigate on click with visual indicators (Edit icon)
 
 ---
+
+## 2025-02-13 - tiendexApp-sfb.14
+
+- Implemented dashboard layout with responsive sidebar (desktop) and bottom navigation (mobile)
+- Created NotificationProvider context for centralized notification state management across dashboard
+- Updated dashboard layout with sidebar navigation for desktop and hamburger menu for mobile
+- Added bottom navigation bar for mobile with 4 main sections + settings
+- Implemented active route highlighting in both sidebar and mobile navigation
+- Added user menu with sign out option in both desktop and mobile views
+- Created app/dashboard/layout.tsx with smooth Framer Motion transitions
+- Created app/dashboard/customers/page.tsx (customers list page) with search functionality
+- Created app/dashboard/settings/page.tsx (basic settings page)
+- Updated app/dashboard/page.tsx to use new notification context and removed duplicate navigation
+- All navigation items working: Dashboard, Customers, Products, Add Transaction, Settings
+- Responsive design with mobile-first approach and touch-friendly targets
+
+**Files changed:**
+
+- app/dashboard/layout.tsx - New file with complete dashboard layout
+- app/dashboard/customers/page.tsx - New customers list page
+- app/dashboard/settings/page.tsx - New settings page
+- app/dashboard/page.tsx - Updated to use notification context
+- lib/contexts/NotificationContext.tsx - New context for notification state
+- components/NotificationPanel.tsx - Updated to support optional props and context integration
+
+**Learnings:**
+
+- Dashboard layout should be a shared layout file (layout.tsx) to provide consistent navigation across all dashboard pages
+- Framer Motion AnimatePresence component is essential for smooth slide-in/slide-out animations on mobile menus
+- Context Provider pattern is needed for shared state (notifications) that must be accessible from both layout and individual pages
+- Active route highlighting requires checking pathname.startsWith() for nested routes (e.g., /dashboard/customers matches /dashboard/customers/[id])
+- Mobile bottom navigation should use flex with justify-around for evenly distributed items
+- User menu dropdown needs AnimatePresence for smooth open/close animations with opacity and y-axis transforms
+- Notification badge should support both controlled (props) and uncontrolled (context) modes for flexibility
+- TypeScript strict null checking requires proper handling of optional props with fallback to context values
+- LG breakpoint (1024px) is good threshold for switching from mobile to desktop navigation
+- Fixed sidebar with lg:fixed lg:inset-y-0 creates proper sidebar layout on desktop
+
+**Patterns discovered:**
+
+- Dashboard Layout Pattern: Use layout.tsx with sidebar (desktop) and mobile header + bottom nav, NotificationProvider wrapper for state sharing
+- Responsive Navigation Pattern: Hide sidebar on lg:hidden, show hamburger menu, use bottom nav for mobile, desktop header for notifications/user menu
+- Active Route Highlighting Pattern: Check exact match for root route, startsWith for nested routes, apply conditional classes for active/inactive states
+- Mobile Menu Animation Pattern: AnimatePresence with motion.div, x: '-100%' to 0 with spring physics for slide-in effect
+- User Menu Dropdown Pattern: Relative parent, absolute dropdown with AnimatePresence, opacity/y transforms, click outside via backdrop
+- Context Provider Pattern: Create context for shared state, wrap layout content, export useNotification hook for child components
+- Touch-Friendly Navigation Pattern: Bottom nav with py-2, large icons (w-6 h-6), text-xs labels, full-width flex buttons
+
+---
+
+## 2025-02-13 - tiendexApp-sfb.26
+
+- Installed core shadcn/ui components: Button, Input, Card, Dialog, DropdownMenu, Badge, Separator
+- All components are ready to use and follow the existing brand colors and dark mode infrastructure
+
+**Files changed:**
+
+- components/ui/button.tsx - New button component
+- components/ui/input.tsx - New input component
+- components/ui/card.tsx - New card component
+- components/ui/dialog.tsx - New dialog component
+- components/ui/dropdown-menu.tsx - New dropdown menu component
+- components/ui/badge.tsx - New badge component
+- components/ui/separator.tsx - New separator component
+
+**Learnings:**
+
+- shadcn/ui CLI (npx shadcn@latest add) automatically installs components from registry
+- Components are customized via the existing tailwind.config.ts CSS variables
+- Dark mode infrastructure was already set up in tiendexApp-sfb.1, no additional work needed
+- All components follow the existing codebase patterns (single quotes, no semicolons, 2-space indentation)

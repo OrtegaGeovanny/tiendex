@@ -1,17 +1,12 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
-import {
-  Package,
-  Users,
-  DollarSign,
-  History
-} from "lucide-react";
+import { motion } from 'framer-motion'
+import { Package, Users, DollarSign, History } from 'lucide-react'
 
 interface FeatureCardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
+  icon: React.ReactNode
+  title: string
+  description: string
 }
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
@@ -19,20 +14,16 @@ function FeatureCard({ icon, title, description }: FeatureCardProps) {
     <motion.div
       whileHover={{ scale: 1.05, y: -5 }}
       whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700"
     >
-      <div className="mb-4 text-blue-600 dark:text-blue-400">
-        {icon}
-      </div>
+      <div className="mb-4 text-blue-600 dark:text-blue-400">{icon}</div>
       <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
         {title}
       </h3>
-      <p className="text-gray-600 dark:text-gray-300">
-        {description}
-      </p>
+      <p className="text-gray-600 dark:text-gray-300">{description}</p>
     </motion.div>
-  );
+  )
 }
 
 export default function Features() {
@@ -44,10 +35,11 @@ export default function Features() {
             Todo lo que necesitas para gestionar tu negocio
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            TiendexApp te ofrece herramientas simples y poderosas para llevar el control de tu tienda
+            TiendexApp te ofrece herramientas simples y poderosas para llevar el
+            control de tu tienda
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <FeatureCard
             icon={<Package size={40} />}
@@ -72,5 +64,5 @@ export default function Features() {
         </div>
       </div>
     </section>
-  );
+  )
 }
