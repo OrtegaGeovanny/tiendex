@@ -20,3 +20,41 @@ export interface UpdateCustomerInput {
   phone?: string | null;
   totalDebt?: number;
 }
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+export interface CreateProductInput {
+  name: string;
+  price: number;
+}
+
+export interface Transaction {
+  id: string;
+  customerId: string;
+  customerName: string;
+  productId: string;
+  productName: string;
+  quantity: number;
+  price: number;
+  totalAmount: number;
+  type: "credit" | "payment";
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+export interface CreateTransactionInput {
+  customerId: string;
+  customerName: string;
+  productId: string;
+  productName: string;
+  quantity: number;
+  price: number;
+  totalAmount: number;
+  type: "credit" | "payment";
+}
