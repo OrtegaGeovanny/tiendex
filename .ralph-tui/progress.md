@@ -20,10 +20,53 @@ after each iteration and it's included in prompts for context.
 - **Notification Panel Pattern**: Overlay modal with backdrop, header with close button, scrollable content list, empty state with icon, and action buttons per item
 - **Badge Counter Pattern**: Bell icon with badge showing count (9+ for >9 items) in top-right corner using absolute positioning
 - **React useCallback Pattern**: Memoize callback functions to prevent unnecessary re-renders and fix ESLint exhaustive-deps warnings
+- **Prettier Configuration**: Use .prettierrc for consistent code formatting with single quotes, no semicolons, and 2-space indentation
+
+---
+
+## 2025-02-13 - tiendexApp-sfb.1
+
+- Verified Next.js 15.0.3 with TypeScript is properly configured
+- Confirmed Tailwind CSS is configured with mobile-first breakpoints (xs: 375px)
+- Initialized shadcn/ui with New York style and CSS variables (created components.json)
+- Installed Framer Motion v12.34.0 (already present)
+- Configured Prettier with ESLint integration (created .prettierrc, .prettierignore)
+- Added format scripts to package.json (format, format:check, lint:fix)
+- Updated tailwind.config.ts with shadcn/ui color system and dark mode support
+- Updated globals.css with shadcn/ui CSS variables for light and dark themes
+- Created lib/utils.ts with cn() utility function for class merging
+- All quality checks pass: npm run typecheck and npm run lint
+
+**Files changed:**
+
+- .eslintrc.json - Added prettier to extends array
+- package.json - Added format scripts and Prettier dependencies
+- .prettierrc - Created with formatting rules
+- .prettierignore - Created with ignore patterns
+- components.json - Created by shadcn/ui init
+- tailwind.config.ts - Updated with shadcn/ui theme and dark mode
+- app/globals.css - Updated with CSS variables for theming
+- lib/utils.ts - Created cn() utility function
+
+**Learnings:**
+
+- Tailwind CSS uses mobile-first by default, no additional configuration needed
+- shadcn/ui init command automatically installs required dependencies (clsx, tailwind-merge, tailwindcss-animate)
+- CSS variables in globals.css allow for easy theming with hsl() values
+- The cn() utility from shadcn/ui merges Tailwind classes intelligently using clsx and tailwind-merge
+- Prettier needs to be added to ESLint extends array to prevent conflicts
+
+**Patterns discovered:**
+
+- Prettier Configuration Pattern: Use .prettierrc for consistent formatting, integrate with ESLint via eslint-config-prettier
+- shadcn/ui Setup Pattern: Initialize with default settings, then add components as needed via CLI
+- CSS Variable Theming Pattern: Use HSL values in CSS variables for easy dark mode theming
+- Class Merging Pattern: Use cn() utility to intelligently merge Tailwind classes
 
 ---
 
 ## 2025-02-13 - tiendexApp-sfb.6
+
 - Implemented Features section for landing page with 4 feature cards
 - Created Features component with Product Management, Customer Tracking, Credit Fiado, and Payment History cards
 - E...
@@ -31,6 +74,7 @@ after each iteration and it's included in prompts for context.
 ---
 
 ## 2025-02-13 - tiendexApp-sfb.4
+
 - Implemented Hero section for landing page with compelling Spanish headline and subheadline
 - Created Hero component with modern brutalist aesthetic, bold typography, and gradient backgrounds
 - Added smooth entrance animations using Framer Motion with staggered delays
@@ -40,6 +84,7 @@ after each iteration and it's included in prompts for context.
 - Updated app/page.tsx to include Hero component above Features section
 
 **Learnings:**
+
 - Framer Motion entrance animations work well with staggered delays for sequential reveal effect
 - Gradient backgrounds with blur circles create depth and visual interest without being overwhelming
 - Using icons within feature cards provides clear visual cues for the value proposition
@@ -53,6 +98,7 @@ after each iteration and it's included in prompts for context.
 ---
 
 ## 2025-02-13 - tiendexApp-sfb.25
+
 - Implemented in-app notifications for overdue payments with Firebase Firestore backend
 - Created Notification type and interfaces in lib/firebase/types.ts
 - Created lib/firebase/notifications.ts with full CRUD operations (create, get, markAsRead, dismiss, delete)
@@ -67,6 +113,7 @@ after each iteration and it's included in prompts for context.
 - Dismiss button removes notification from panel
 
 **Files changed:**
+
 - lib/firebase/types.ts - Added Notification and CreateNotificationInput interfaces
 - lib/firebase/notifications.ts - New file with notification operations
 - lib/firebase/customers.ts - Added getCustomersWithDebt function
@@ -75,6 +122,7 @@ after each iteration and it's included in prompts for context.
 - app/dashboard/customers/[id]/page.tsx - New customer detail page
 
 **Learnings:**
+
 - useCallback is essential for fixing React Hook exhaustive-deps warnings when callbacks are used in useEffect dependencies
 - Notification system should prevent duplicate notifications by checking existing ones before creating new ones
 - Mobile-first overlay design requires fixed positioning, backdrop, and scrollable content areas
@@ -84,6 +132,7 @@ after each iteration and it's included in prompts for context.
 - Navigation from notification should both mark as read and close the panel
 
 **Patterns discovered:**
+
 - Notification Panel Pattern: Overlay modal with backdrop, header with close button, scrollable content list, empty state with icon, and action buttons per item
 - Badge Counter Pattern: Bell icon with badge showing count (9+ for >9 items) in top-right corner using absolute positioning
 - React useCallback Pattern: Memoize callback functions to prevent unnecessary re-renders and fix ESLint exhaustive-deps warnings
@@ -91,6 +140,7 @@ after each iteration and it's included in prompts for context.
 ---
 
 ## 2025-02-13 - tiendexApp-sfb.23
+
 - Implemented Quick Credit Entry workflow at /dashboard/transactions/new
 - Created Product and Transaction types in lib/firebase/types.ts
 - Created products.ts with getProduct, getProducts, and searchProductsByName operations
@@ -104,12 +154,14 @@ after each iteration and it's included in prompts for context.
 - Error handling for missing data and Firebase errors
 
 **Files changed:**
+
 - lib/firebase/types.ts - Added Product and Transaction types
 - lib/firebase/products.ts - New file for product operations
 - lib/firebase/transactions.ts - New file for transaction operations
 - app/dashboard/transactions/new/page.tsx - New quick credit entry page
 
 **Learnings:**
+
 - Firestore runTransaction is essential for atomic operations that update multiple documents (transaction + customer debt)
 - Autocomplete dropdowns with inline search work well for quick data entry on mobile
 - Large touch targets (py-4, text-lg) improve usability on mobile devices
@@ -119,6 +171,7 @@ after each iteration and it's included in prompts for context.
 - Using user.uid as storeId is a clean pattern for multi-tenant Firebase apps
 
 **Patterns discovered:**
+
 - Transactional Data Pattern: Use runTransaction for operations that must update multiple documents atomically
 - Autocomplete Dropdown Pattern: Filter array based on search input, render list, highlight selected item
 - Form Reset Pattern: Clear all form state after successful submission, optionally trigger "record another" flow
@@ -127,6 +180,7 @@ after each iteration and it's included in prompts for context.
 ---
 
 ## 2025-02-13 - tiendexApp-sfb.20
+
 - Implemented Add/Edit Customer Form at /dashboard/customers/new and /dashboard/customers/[id]/edit
 - Added createCustomer and updateCustomer functions to lib/firebase/customers.ts
 - Created mobile-optimized customer form with name (required) and phone (optional) fields
@@ -137,11 +191,13 @@ after each iteration and it's included in prompts for context.
 - Loading state with spinner when fetching customer data for edit
 
 **Files changed:**
+
 - lib/firebase/customers.ts - Added createCustomer and updateCustomer functions
 - app/dashboard/customers/new/page.tsx - New add customer page
 - app/dashboard/customers/[id]/edit/page.tsx - New edit customer page
 
 **Learnings:**
+
 - Dynamic route parameters ([id]) are accessible via useParams hook in Next.js App Router
 - Form patterns are reusable across add and edit pages - consider extracting shared form component for DRY
 - Loading state is important for edit pages that need to fetch data before rendering
@@ -149,6 +205,7 @@ after each iteration and it's included in prompts for context.
 - TypeScript type checking catches null/undefined issues early in development
 
 **Patterns discovered:**
+
 - CRUD Form Pattern: Separate add and edit pages that share similar form structure and validation
 - Success Feedback Pattern: Green banner with check icon and action button (e.g., "Back to Dashboard")
 - Error Display Pattern: Red banner with X icon for error messages
@@ -158,6 +215,7 @@ after each iteration and it's included in prompts for context.
 ---
 
 ## 2025-02-13 - tiendexApp-sfb.16
+
 - Implemented Product List View at /dashboard/products
 - Created mobile-optimized product list with responsive grid layout (1 col mobile, 2 cols tablet, 3 cols desktop)
 - Added real-time search/filter functionality by product name
@@ -169,9 +227,11 @@ after each iteration and it's included in prompts for context.
 - Large touch targets and clear CTAs for mobile optimization
 
 **Files changed:**
+
 - app/dashboard/products/page.tsx - New product list page
 
 **Learnings:**
+
 - Search functionality should filter the array client-side for immediate feedback on small datasets
 - Responsive grid layouts (grid-cols-1 sm:grid-cols-2 lg:grid-cols-3) work well for card-based lists
 - Empty states should provide clear guidance and next steps for users
@@ -180,6 +240,7 @@ after each iteration and it's included in prompts for context.
 - TypeScript requires explicit type assertion (uid as string) even after null check due to strict null checking
 
 **Patterns discovered:**
+
 - List/Grid View Pattern: Use responsive grid with large touch targets, show key info (name, price) on cards, use Edit icon for affordance
 - Search Pattern: Client-side array filtering with lowercase comparison for case-insensitive search
 - Empty State Pattern: Icon + message + primary CTA button to guide users to take action
