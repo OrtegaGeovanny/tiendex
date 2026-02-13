@@ -1,10 +1,13 @@
 import {
   collection,
   doc,
+  addDoc,
+  updateDoc,
   getDoc,
   getDocs,
   query,
   where,
+  Timestamp,
 } from "firebase/firestore";
 import { getFirebaseFirestore } from "./client";
 import { getFirebaseErrorMessage } from "./firestore";
@@ -64,6 +67,43 @@ export async function getCustomersByName(
     return customers;
   } catch (error) {
     console.error("Error fetching customers by name:", error);
+    throw new Error(getFirebaseErrorMessage(error));
+  }
+}
+
+export async function createCustomer(
+  storeId: string,
+  input: CreateCustomerInput
+): Promise<string> {
+  try {
+    const customersRef = collection(db, `stores/${storeId}/customers`);
+    const docRef = await addDoc(customersRef, {
+      ...input,
+      totalDebt: input.totalDebt || 0,
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
+    });
+
+    return docRef.id;
+  } catch (error) {
+    console.error("Error creating customer:", error);
+    throw new Error(getFirebaseErrorMessage(error));
+  }
+}
+
+export async function updateCustomer(
+  storeId: string,
+  customerId: string,
+  input: UpdateCustomerInput
+): Promise<void> {
+  try {
+    const customerRef = doc(db, `stores/${storeId}/customers`, customerId);
+    await updateDoc(customerRef, {
+      ...input,
+      updatedAt: Timestamp.now(),
+    });
+  } catch (error) {
+    console.error("Error updating customer:", error);
     throw new Error(getFirebaseErrorMessage(error));
   }
 }
