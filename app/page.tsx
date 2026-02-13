@@ -1,3 +1,11 @@
-{"type":"step_start","timestamp":1771016289959,"sessionID":"ses_3a73410e2ffeS7FnR8uhgytQDI","part":{"id":"prt_c58cbfea3001HRZl7zZGSxO3bg","sessionID":"ses_3a73410e2ffeS7FnR8uhgytQDI","messageID":"msg_c58cbef52001Fs6BhGGvvoqLC4","type":"step-start","snapshot":"7c8ab7307368e1049474158c43c1d573a20c66d1"}}
-{"type":"text","timestamp":1771016293570,"sessionID":"ses_3a73410e2ffeS7FnR8uhgytQDI","part":{"id":"prt_c58cc0cb50018s4ZkkRo34t6Fl","sessionID":"ses_3a73410e2ffeS7FnR8uhgytQDI","messageID":"msg_c58cbef52001Fs6BhGGvvoqLC4","type":"text","text":"import Features from \"@/components/Features\";\n\nexport default function Home() {\n  return (\n    <div>\n      <h1>TiendexApp</h1>\n      <Features />\n    </div>\n  );\n}","time":{"start":1771016293568,"end":1771016293568}}}
-{"type":"step_finish","timestamp":1771016293595,"sessionID":"ses_3a73410e2ffeS7FnR8uhgytQDI","part":{"id":"prt_c58cc0cc2001hnNFsZQcGtHVtH","sessionID":"ses_3a73410e2ffeS7FnR8uhgytQDI","messageID":"msg_c58cbef52001Fs6BhGGvvoqLC4","type":"step-finish","reason":"stop","snapshot":"7c8ab7307368e1049474158c43c1d573a20c66d1","cost":0,"tokens":{"total":13568,"input":4534,"output":485,"reasoning":438,"cache":{"read":8549,"write":0}}}}
+import Hero from "@/components/Hero";
+import Features from "@/components/Features";
+
+export default function Home() {
+  return (
+    <div>
+      <Hero />
+      <Features />
+    </div>
+  );
+}
