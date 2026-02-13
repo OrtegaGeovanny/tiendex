@@ -14,6 +14,20 @@ after each iteration and it's included in prompts for context.
 
 ---
 
+## 2025-02-13 - tiendexApp-sfb.10
+- Added "Forgot Password?" link to login page
+- Added "Do not have an account? Sign up" link to login page
+- Fixed ESLint error by replacing "Don't" with "Do not" to avoid unescaped entities
+- Verified all acceptance criteria for login page are met
+- Files modified: app/login/page.tsx
+- **Learnings:**
+  - Login page was already implemented in previous bead (tiendexApp-sfb.13), only missing links were needed
+  - ESLint enforces strict rules for HTML entities - apostrophes must be escaped or avoided
+  - Firebase requires environment variables to be configured (NEXT_PUBLIC_FIREBASE_*) for runtime functionality
+  - Code structure follows existing patterns: uses AuthContext, Firebase auth functions, and router navigation
+  - Form validation uses HTML5 built-in validation (required, type="email") before Firebase auth calls
+
+---
 
 ## 2025-02-13 - tiendexApp-sfb.18
 - Implemented customer data model with TypeScript types and interfaces

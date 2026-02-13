@@ -92,6 +92,29 @@ export default function LoginPage() {
               {loading ? "Signing in..." : "Sign in"}
             </button>
           </div>
+
+          <div className="flex items-center justify-between">
+            <div className="text-sm">
+              <a
+                href="#"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Forgot your password?
+              </a>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <span className="text-sm text-gray-600">
+              Do not have an account?{" "}
+              <a
+                href="/register"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Sign up
+              </a>
+            </span>
+          </div>
         </form>
       </div>
     </div>
