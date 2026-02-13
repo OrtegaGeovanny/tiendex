@@ -21,6 +21,7 @@ after each iteration and it's included in prompts for context.
 - **Badge Counter Pattern**: Bell icon with badge showing count (9+ for >9 items) in top-right corner using absolute positioning
 - **React useCallback Pattern**: Memoize callback functions to prevent unnecessary re-renders and fix ESLint exhaustive-deps warnings
 - **Prettier Configuration**: Use .prettierrc for consistent code formatting with single quotes, no semicolons, and 2-space indentation
+- **Footer Pattern**: 4-column responsive grid with company info, product links, support links, and social media; dark background for visual hierarchy; gradient brand name for continuity; dynamic copyright year; border-top separator (components/Footer.tsx)
 
 ---
 
@@ -318,3 +319,37 @@ after each iteration and it's included in prompts for context.
 - Components are customized via the existing tailwind.config.ts CSS variables
 - Dark mode infrastructure was already set up in tiendexApp-sfb.1, no additional work needed
 - All components follow the existing codebase patterns (single quotes, no semicolons, 2-space indentation)
+
+---
+
+## 2025-02-13 - tiendexApp-sfb.9
+
+- Implemented landing page footer with company branding, navigation links, and social media icons
+- Created Footer component with responsive grid layout (1 column mobile, 4 columns desktop)
+- Added company name TiendexApp with gradient text matching Hero section aesthetic
+- Included product links (Terms of Service, Privacy Policy) and support links (Contact, Email)
+- Added social media buttons (Twitter, Facebook, Instagram) with hover effects
+- Included copyright notice with dynamic year
+- Implemented dark mode support with consistent color scheme
+- Updated app/page.tsx to include Footer component after Hero and Features
+- All quality checks pass: npm run typecheck and npm run lint
+
+**Files changed:**
+
+- components/Footer.tsx - New footer component with company info, links, and social media
+- app/page.tsx - Added Footer import and component
+
+**Learnings:**
+
+- Footer components should be server components by default (no interactivity needed)
+- Gradient text from bg-clip-text creates visual continuity with branding
+- Dark footer backgrounds (gray-900/950) provide better visual hierarchy for bottom of page
+- Grid layout with responsive breakpoints works well for footer sections
+- Social media icons should include aria-label for accessibility
+- Copyright year should be dynamic using new Date().getFullYear()
+- Hover effects on social icons improve UX feedback
+- Footer border-top helps separate content from footer
+
+**Patterns discovered:**
+
+- Footer Pattern: 4-column responsive grid with company info, product links, support links, and social media; dark background for visual hierarchy; gradient brand name for continuity; dynamic copyright year; border-top separator
