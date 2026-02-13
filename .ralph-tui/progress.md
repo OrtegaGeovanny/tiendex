@@ -11,6 +11,9 @@ after each iteration and it's included in prompts for context.
 - **Security Rules**: Use helper functions in Firestore rules for cleaner, more maintainable permissions
 - **Type Organization**: Separate types (types.ts) from operations (customers.ts) for better maintainability
 - **Auth Context Pattern**: Use React Context with onAuthStateChanged for centralized auth state management across Next.js App Router
+- **Client Component Pattern**: Use "use client" directive for components using hooks (useState, useEffect, motion from framer-motion) or interactive features
+- **Framer Motion Animations**: Use whileHover and whileTap for interactive card animations with spring physics for smooth feel
+- **Responsive Grid Layout**: Use Tailwind grid with responsive classes (grid-cols-1 md:grid-cols-2 lg:grid-cols-4) for adaptive layouts
 
 ---
 
@@ -63,4 +66,19 @@ after each iteration and it's included in prompts for context.
   - Context provider pattern ensures auth state is available throughout the app
 ---
 
+## 2025-02-13 - tiendexApp-sfb.6
+- Implemented Features section for landing page with 4 feature cards
+- Created Features component with Product Management, Customer Tracking, Credit Fiado, and Payment History cards
+- Each card includes icon (lucide-react), title, and description
+- Implemented responsive grid layout (1 col mobile, 2 col tablet, 4 col desktop)
+- Added Framer Motion hover/tap animations with spring physics
+- Section includes heading and subheading in Spanish
+- Files created: components/Features.tsx
+- Files modified: app/page.tsx
+- **Learnings:**
+  - Client components require "use client" directive when using hooks or interactive libraries like framer-motion
+  - Tailwind responsive grid provides clean adaptive layouts without media queries
+  - Framer Motion's whileHover and whileTap create smooth, interactive animations
+  - lucide-react icons are already available in the project dependencies
+  - Component should be imported and used directly in page.tsx for Next.js App Router
 
