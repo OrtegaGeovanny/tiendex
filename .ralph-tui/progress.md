@@ -22,6 +22,10 @@ after each iteration and it's included in prompts for context.
 - **React useCallback Pattern**: Memoize callback functions to prevent unnecessary re-renders and fix ESLint exhaustive-deps warnings
 - **Prettier Configuration**: Use .prettierrc for consistent code formatting with single quotes, no semicolons, and 2-space indentation
 - **Footer Pattern**: 4-column responsive grid with company info, product links, support links, and social media; dark background for visual hierarchy; gradient brand name for continuity; dynamic copyright year; border-top separator (components/Footer.tsx)
+- **Input Validation Pattern**: Validate database inputs before operations (check for empty strings, non-negative numbers) and throw descriptive error messages (lib/firebase/products.ts)
+- **CRUD Helper Pattern**: Use addDoc for create (auto-generates ID), updateDoc for updates, deleteDoc for deletion, with Timestamp.now() for createdAt/updatedAt (lib/firebase/products.ts)
+- **Partial Update Pattern**: Use TypeScript optional fields in input interfaces (UpdateProductInput, UpdateCustomerInput) to allow partial document updates
+- **Field Sanitization Pattern**: Trim string inputs (like name) with .trim() to remove leading/trailing whitespace before database operations (lib/firebase/products.ts)
 
 ---
 
@@ -353,3 +357,34 @@ after each iteration and it's included in prompts for context.
 **Patterns discovered:**
 
 - Footer Pattern: 4-column responsive grid with company info, product links, support links, and social media; dark background for visual hierarchy; gradient brand name for continuity; dynamic copyright year; border-top separator
+
+## [2025-02-14] - tiendexApp-sfb.15
+
+- Updated Product interface to include stockQuantity and unit fields
+- Added CreateProductInput and UpdateProductInput interfaces
+- Implemented createProduct function with validation for name, price, and stockQuantity
+- Implemented updateProduct function with validation for all fields
+- Implemented deleteProduct function for product removal
+- Firestore security rules already covered product CRUD operations (authenticated users can manage their own store's products)
+
+**Files changed:**
+
+- lib/firebase/types.ts - Added stockQuantity and unit to Product and CreateProductInput, added UpdateProductInput
+- lib/firebase/products.ts - Added createProduct, updateProduct, deleteProduct functions with validation
+
+**Learnings:**
+
+- Product validation should ensure name is not empty, price and stockQuantity are non-negative numbers
+- UpdateProductInput uses optional fields to allow partial updates (similar to UpdateCustomerInput pattern)
+- Firestore helper functions like addDoc and updateDoc from firebase/firestore are used for CRUD operations
+- Timestamp.now() must be used for createdAt and updatedAt fields to maintain consistency
+- Unit field is optional (string | null) to allow products without units
+
+**Patterns discovered:**
+
+- Validation Pattern: Validate input before database operations, throw descriptive error messages for invalid data
+- CRUD Helper Pattern: Use addDoc for create (auto-generates ID), updateDoc for updates, deleteDoc for deletion
+- Partial Update Pattern: Use TypeScript optional fields in input interfaces to allow partial updates
+- Field Sanitization: Trim string inputs (like name) to remove leading/trailing whitespace
+
+---

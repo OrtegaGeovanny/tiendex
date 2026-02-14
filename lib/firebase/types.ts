@@ -25,6 +25,8 @@ export interface Product {
   id: string
   name: string
   price: number
+  stockQuantity: number
+  unit?: string | null
   createdAt: Timestamp
   updatedAt: Timestamp
 }
@@ -32,6 +34,15 @@ export interface Product {
 export interface CreateProductInput {
   name: string
   price: number
+  stockQuantity: number
+  unit?: string | null
+}
+
+export interface UpdateProductInput {
+  name?: string
+  price?: number
+  stockQuantity?: number
+  unit?: string | null
 }
 
 export interface Transaction {
