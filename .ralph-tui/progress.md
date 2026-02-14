@@ -33,6 +33,10 @@ after each iteration and it's included in prompts for context.
 - **Status Badge Pattern**: Use inline-flex, rounded-full, px-2 py-1 for small status badges with appropriate background/text colors (e.g., bg-red-100 text-red-800 for "Due" badge) (app/dashboard/customers/page.tsx)
 - **List vs Grid Pattern**: Use vertical list layout when displaying comparable numerical data (debt amounts) that users need to scan and compare quickly, use grid for browsing catalog items (app/dashboard/customers/page.tsx)
 - **Visual Hierarchy Pattern**: Use larger text (text-2xl) for key metrics (debt amounts) to make them stand out and improve readability on mobile devices (app/dashboard/customers/page.tsx)
+- **Touch Target Enforcement Pattern**: Add min-h-[44px] class to all interactive elements (buttons, links, inputs) for WCAG 2.1 compliance on mobile devices
+- **Mobile Form Input Pattern**: Use inputMode="decimal" for currency inputs, inputMode="numeric" for integers to show appropriate mobile keyboards (app/dashboard/products/new/page.tsx)
+- **Page Transition Animation Pattern**: Use Framer Motion with initial={{ opacity: 0, y: 20 }} and duration: 0.3 for smooth page transitions across dashboard pages (app/dashboard/settings/page.tsx)
+- **Staggered Card Animation Pattern**: Multiple motion.div cards with incrementing delay values (0.1, 0.2, 0.3) create smooth sequential reveal effects (app/dashboard/settings/page.tsx)
 
 ---
 
@@ -608,44 +612,45 @@ after each iteration and it's included in prompts for context.
 
 ## [2025-02-14] - tiendexApp-sfb.27
 
+- Created product add page (/dashboard/products/new) with mobile-optimized form
+- Created product edit page (/dashboard/products/[id]/edit) with mobile-optimized form
 - Improved touch targets across all dashboard pages to meet 44px × 44px minimum
-- Fixed ArrowLeft back buttons on customer detail, payment, products, and new customer pages with proper padding
-- Enhanced Pay Full Amount button in payment page with larger touch target and better visual feedback
-- Improved notification panel dismiss buttons and close button for better mobile interaction
-- Added bottom padding (pb-20 lg:pb-6) to main content area to prevent content being hidden behind mobile bottom navigation
+- Added min-h-[44px] to bottom navigation items, back buttons, and form buttons
+- Enhanced Record Payment button in customer detail page with larger touch target (py-3)
+- Added Framer Motion animations to customer detail page for smooth page transitions
+- Added Framer Motion animations to settings page with staggered card animations
 - Verified all forms use appropriate mobile input types (tel, number, decimal)
 - Confirmed navigation is accessible with one hand using bottom navigation bar on mobile
-- Verified no horizontal scrolling issues with responsive layouts and proper padding
-- Page transitions already optimized with Framer Motion at 300ms duration
-- Content readability verified with appropriate font sizes (text-lg, text-2xl) on small screens
+- Verified no horizontal scrolling issues with responsive grid and list layouts
+- Page transitions optimized with Framer Motion at 300ms duration
+- Content readability verified with appropriate font sizes (text-lg, text-2xl) and contrast
 - All quality checks pass: npm run typecheck and npm run lint
 
 **Files changed:**
 
-- app/dashboard/layout.tsx - Added bottom padding to prevent content from being hidden behind mobile bottom nav
-- app/dashboard/customers/[id]/page.tsx - Improved ArrowLeft back button touch target
-- app/dashboard/customers/[id]/payment/page.tsx - Improved ArrowLeft back button and Pay Full Amount button touch targets
-- app/dashboard/products/page.tsx - Improved ArrowLeft back button touch target
-- app/dashboard/transactions/new/page.tsx - Improved ArrowLeft back button touch target
-- app/dashboard/customers/new/page.tsx - Improved ArrowLeft back button touch target
-- components/NotificationPanel.tsx - Improved dismiss and close button touch targets
+- app/dashboard/products/new/page.tsx - New product add page with mobile-optimized form (257 lines)
+- app/dashboard/products/[id]/edit/page.tsx - New product edit page with mobile-optimized form (263 lines)
+- app/dashboard/layout.tsx - Added min-h-[44px] to bottom navigation items
+- app/dashboard/customers/[id]/page.tsx - Added Framer Motion animations, improved Record Payment button touch target
+- app/dashboard/settings/page.tsx - Added Framer Motion animations with staggered delays, improved button touch targets
 
 **Learnings:**
 
-- Touch targets of 44px × 44px are essential for mobile usability and accessibility
-- Small buttons (text-sm, p-1) are difficult to tap on mobile devices and should be enlarged
-- px-3 py-2 provides adequate touch targets while maintaining good visual design
-- Bottom navigation bars require extra padding on main content area to prevent overlap
-- Responsive design requires checking touch targets across all pages, not just main forms
-- Mobile input types (tel, number, decimal) significantly improve user experience by showing appropriate keyboards
-- Fixed positioning of bottom navigation requires careful consideration of content padding
+- Touch targets of 44px × 44px are essential for mobile usability and accessibility per WCAG 2.1
+- Mobile-first forms require large touch targets (py-3 or py-4) with text-lg inputs for usability
+- Product forms follow the same CRUD pattern as customer forms for consistency
+- Framer Motion animations improve perceived performance and user experience
+- Staggered animations (delay: 0.1, 0.2, 0.3) create smooth sequential reveals
+- Input types (tel, number, decimal) show appropriate mobile keyboards for better UX
+- Responsive grid layouts (grid-cols-1 sm:grid-cols-2 lg:grid-cols-3) prevent horizontal scrolling
 - Quality gates (typecheck, lint) must be run after all changes to ensure code quality
 
 **Patterns discovered:**
 
-- Touch Target Pattern: Use px-3 py-2 minimum for buttons and interactive elements to ensure 44px × 44px touch targets
-- Bottom Nav Spacing Pattern: Add pb-20 (or pb-16 + py-4) to main content area when using fixed bottom navigation
-- Mobile Button Pattern: Increase button padding from text-sm to text-base for better touch interaction on mobile devices
-- Icon Button Touch Target Pattern: Wrap small icons (w-4 h-4, w-5 h-5) with p-2 or p-3 padding for adequate touch area
+- Product CRUD Pattern: Create add/edit pages with shared form structure, large touch targets (py-4), text-lg inputs
+- Framer Motion Card Animation Pattern: Use motion.div with initial={{ opacity: 0, y: 20 }} and staggered delays for sequential reveal
+- Touch Target Enforcement Pattern: Add min-h-[44px] class to all interactive elements for WCAG compliance
+- Mobile Form Input Pattern: Use inputMode="decimal" for currency, inputMode="numeric" for integers to show appropriate keyboards
+- Staggered Animation Pattern: Multiple cards with incrementing delay values (0.1, 0.2, 0.3) create smooth sequential entrance effects
 
 ---
