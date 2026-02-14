@@ -679,3 +679,38 @@ after each iteration and it's included in prompts for context.
 - Staggered Animation Pattern: Multiple cards with incrementing delay values (0.1, 0.2, 0.3) create smooth sequential entrance effects
 
 ---
+
+## [2025-02-14] - tiendexApp-sfb.5
+
+- Implemented Problem/Solution section for landing page highlighting pain points of paper notebooks
+- Created ProblemSolution component with split layout (problem on left, solution on right on desktop)
+- Added 4 problem items: disordered notebooks, calculation errors, no inventory control, lost money
+- Added 4 solution items: everything in one place, automatic calculations, inventory control, money recovered
+- Implemented Framer Motion scroll animations with staggered entrance effects (0.1, 0.2, 0.3, 0.4 delays)
+- Used visual contrast with red/green color coding for problem vs solution sections
+- Mobile-optimized with stacked layout on small screens, proper spacing and touch targets
+- Updated app/page.tsx to include ProblemSolution section between Hero and Features
+- All quality checks pass: npm run typecheck and npm run lint
+
+**Files changed:**
+
+- components/ProblemSolution.tsx - New component with problem/solution split layout and animations
+- app/page.tsx - Added ProblemSolution import and component
+
+**Learnings:**
+
+- Split layout with contrasting colors (red/green) creates clear visual distinction between problem and solution
+- Using icons (AlertCircle for problems, CheckCircle2 for solutions) provides immediate visual cues
+- Staggered animations (0.1, 0.2, 0.3, 0.4 delays) create smooth sequential reveal for list items
+- whileInView with viewport={{ once: true }} ensures animations only play once when scrolled into view
+- Grid layout with lg:grid-cols-2 creates two-column layout on desktop, stacked on mobile
+- Section header with icon provides clear hierarchy and branding consistency
+- Using background colors (bg-red-50, bg-green-50) with dark mode variants improves readability
+
+**Patterns discovered:**
+
+- Problem/Solution Pattern: Split layout with contrasting colors (red for problems, green for solutions), icons for visual cues, staggered animations for sequential reveal, mobile-stacked layout
+- Visual Contrast Pattern: Use color coding (red/green backgrounds) and icons (AlertCircle/CheckCircle2) to create clear distinction between contrasting concepts
+- List Item Pattern: Use flex with gap for spacing, rounded cards with bg-\* for visual grouping, icons in circular containers for consistency
+
+---
