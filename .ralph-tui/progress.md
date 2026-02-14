@@ -29,6 +29,10 @@ after each iteration and it's included in prompts for context.
 - **Phone Mockup Pattern**: Use nested divs with rounded borders (rounded-[2.5rem]), gradient blurs, and shadows to create realistic phone frames. Inner container with fixed dimensions (280x560px) for screen content (components/Screenshots.tsx)
 - **Parallax Scroll Pattern**: Use useScroll with target ref to track element visibility, useTransform to map scrollProgress to y-axis movement for smooth parallax effects tied to scroll (components/Screenshots.tsx)
 - **Staggered Animation Pattern**: Multiple elements with incrementing delay values (0, 0.2, 0.4) create sequential reveal animations when combined with whileInView and viewport={{ once: true }} (components/Screenshots.tsx)
+- **Sorting Pattern**: Use useMemo to sort and filter arrays efficiently when they depend on multiple state variables, provide a dropdown with clear labels for sort options, default to most actionable sort (app/dashboard/customers/page.tsx)
+- **Status Badge Pattern**: Use inline-flex, rounded-full, px-2 py-1 for small status badges with appropriate background/text colors (e.g., bg-red-100 text-red-800 for "Due" badge) (app/dashboard/customers/page.tsx)
+- **List vs Grid Pattern**: Use vertical list layout when displaying comparable numerical data (debt amounts) that users need to scan and compare quickly, use grid for browsing catalog items (app/dashboard/customers/page.tsx)
+- **Visual Hierarchy Pattern**: Use larger text (text-2xl) for key metrics (debt amounts) to make them stand out and improve readability on mobile devices (app/dashboard/customers/page.tsx)
 
 ---
 
@@ -467,5 +471,57 @@ after each iteration and it's included in prompts for context.
 - Mobile Numeric Input Pattern: Use inputMode="decimal" on number inputs for mobile-optimized numeric keyboard
 - Conditional Button Pattern: Show action buttons only when relevant (e.g., Record Payment button only when debt > 0)
 - Quick Action Pattern: Provide "Pay Full Amount" button to auto-fill maximum valid payment amount
+
+---
+
+## [2025-02-14] - tiendexApp-sfb.19
+
+- Implemented customer list with outstanding balances feature
+- Added sorting functionality with three options: Highest Debt (default), Alphabetical (A-Z), Recent Activity
+- Added visual "Due" badge (red) for customers with outstanding debt (> 0)
+- Improved mobile layout with larger, more readable debt amounts (text-2xl)
+- Changed from card grid to vertical list layout for better mobile readability of debt information
+- Added sort dropdown with custom chevron icon for clear affordance
+- Maintained all existing functionality: search, empty state, loading state, add customer button, navigation to detail view
+
+**Files changed:**
+
+- app/dashboard/customers/page.tsx - Added sorting functionality, visual badge for debt, improved mobile layout
+
+**Learnings:**
+
+- useMemo is useful for optimizing sort+filter operations that depend on multiple state variables
+- Vertical list layout is better than grid for displaying debt information as it's easier to scan and compare amounts
+- Large text-2xl font for debt amounts improves readability on mobile devices
+- Color coding (red for debt, green for no debt) provides immediate visual feedback
+- Sort order should default to most actionable option (highest debt) for customer lists
+- Flex-wrap on badge containers ensures badges don't cause layout issues on narrow screens
+
+**Patterns discovered:**
+
+- Sorting Pattern: Use useMemo to sort and filter arrays efficiently when they depend on multiple state variables, provide a dropdown with clear labels for sort options
+- Status Badge Pattern: Use inline-flex, rounded-full, px-2 py-1 for small status badges with appropriate background/text colors (e.g., bg-red-100 text-red-800 for "Due")
+- List vs Grid Pattern: Use vertical list layout when displaying comparable numerical data (debt amounts) that users need to scan and compare quickly
+- Visual Hierarchy Pattern: Use larger text (text-2xl) for key metrics (debt amounts) to make them stand out and improve readability
+
+---
+
+## [2025-02-14] - tiendexApp-sfb.19 (Verification)
+
+- Verified existing implementation from 2025-02-14 meets all acceptance criteria
+- Confirmed quality checks pass: npm run typecheck and npm run lint
+- No changes required - feature already fully implemented
+
+**Files verified:**
+
+- app/dashboard/customers/page.tsx - All functionality confirmed
+- lib/firebase/customers.ts - All helper functions confirmed
+- lib/firebase/types.ts - All interfaces confirmed
+
+**Learnings:**
+
+- Always check progress.md first to avoid duplicate work
+- Existing implementations may already meet all requirements
+- Quality gates (typecheck, lint) should be run even for verification
 
 ---
