@@ -68,7 +68,7 @@ export function NotificationPanel({ isOpen, onClose }: NotificationPanelProps) {
           <h2 className="text-lg font-semibold text-gray-900">Notifications</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-3 hover:bg-gray-100 rounded-full transition-colors"
           >
             <X className="w-5 h-5 text-gray-500" />
           </button>
@@ -110,7 +110,7 @@ export function NotificationPanel({ isOpen, onClose }: NotificationPanelProps) {
                     </div>
                     <button
                       onClick={e => handleDismiss(e, notification.id)}
-                      className="flex-shrink-0 p-1 hover:bg-gray-100 rounded-full transition-colors"
+                      className="flex-shrink-0 p-2 hover:bg-gray-100 rounded-full transition-colors"
                       aria-label="Dismiss notification"
                     >
                       <X className="w-4 h-4 text-gray-400" />

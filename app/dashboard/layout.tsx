@@ -320,7 +320,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="lg:pl-64">
+      <main className="lg:pl-64 pb-20 lg:pb-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -342,7 +342,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center justify-center flex-1 py-2 px-1 transition-all duration-200 ${
+                className={`flex flex-col items-center justify-center flex-1 min-h-[44px] py-2 px-1 transition-all duration-200 ${
                   active ? 'text-indigo-600' : 'text-gray-500'
                 }`}
               >
@@ -357,7 +357,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
           })}
           <Link
             href="/dashboard/settings"
-            className={`flex flex-col items-center justify-center flex-1 py-2 px-1 transition-all duration-200 ${
+            className={`flex flex-col items-center justify-center flex-1 min-h-[44px] py-2 px-1 transition-all duration-200 ${
               isActiveRoute('/dashboard/settings')
                 ? 'text-indigo-600'
                 : 'text-gray-500'

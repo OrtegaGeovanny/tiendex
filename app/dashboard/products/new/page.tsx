@@ -4,14 +4,20 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
-import { createCustomer } from '@/lib/firebase/customers'
+import { createProduct } from '@/lib/firebase/products'
 import { ArrowLeft, Check, X } from 'lucide-react'
 
-function CustomerFormContent({
+function ProductFormContent({
   initialData,
   isEdit,
 }: {
-  initialData?: { id: string; name: string; phone?: string | null }
+  initialData?: {
+    id: string
+    name: string
+    price: number
+    stockQuantity: number
+    unit?: string | null
+  }
   isEdit?: boolean
 }) {
   const { user } = useAuth()
@@ -20,14 +26,30 @@ function CustomerFormContent({
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [name, setName] = useState(initialData?.name || '')
-  const [phone, setPhone] = useState(initialData?.phone || '')
+  const [price, setPrice] = useState(initialData?.price.toString() || '')
+  const [stockQuantity, setStockQuantity] = useState(
+    initialData?.stockQuantity.toString() || '0'
+  )
+  const [unit, setUnit] = useState(initialData?.unit || '')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
 
     if (!name.trim()) {
-      setError('Name is required')
+      setError('Product name is required')
+      return
+    }
+
+    const priceNum = parseFloat(price)
+    if (isNaN(priceNum) || priceNum < 0) {
+      setError('Please enter a valid price')
+      return
+    }
+
+    const stockNum = parseInt(stockQuantity)
+    if (isNaN(stockNum) || stockNum < 0) {
+      setError('Please enter a valid stock quantity')
       return
     }
 
@@ -36,20 +58,24 @@ function CustomerFormContent({
     setSubmitting(true)
     try {
       if (isEdit && initialData) {
-        const { updateCustomer } = await import('@/lib/firebase/customers')
-        await updateCustomer(user.uid, initialData.id, {
+        const { updateProduct } = await import('@/lib/firebase/products')
+        await updateProduct(user.uid, initialData.id, {
           name: name.trim(),
-          phone: phone.trim() || null,
+          price: priceNum,
+          stockQuantity: stockNum,
+          unit: unit.trim() || null,
         })
       } else {
-        await createCustomer(user.uid, {
+        await createProduct(user.uid, {
           name: name.trim(),
-          phone: phone.trim() || null,
+          price: priceNum,
+          stockQuantity: stockNum,
+          unit: unit.trim() || null,
         })
       }
       setSuccess(true)
     } catch (err) {
-      setError('Failed to save customer')
+      setError('Failed to save product')
       console.error(err)
     } finally {
       setSubmitting(false)
@@ -57,19 +83,19 @@ function CustomerFormContent({
   }
 
   const handleCancel = () => {
-    router.push('/dashboard')
+    router.push('/dashboard/products')
   }
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900">
-          {isEdit ? 'Edit Customer' : 'Add Customer'}
+          {isEdit ? 'Edit Product' : 'Add Product'}
         </h1>
         <p className="mt-2 text-gray-600">
           {isEdit
-            ? 'Update customer information'
-            : 'Add a new customer to your store'}
+            ? 'Update product information'
+            : 'Add a new product to your inventory'}
         </p>
       </div>
 
@@ -86,16 +112,16 @@ function CustomerFormContent({
             <Check className="h-8 w-8 text-green-600" />
           </div>
           <h3 className="text-lg font-semibold text-green-900 mb-2">
-            {isEdit ? 'Customer Updated!' : 'Customer Added!'}
+            {isEdit ? 'Product Updated!' : 'Product Added!'}
           </h3>
           <p className="text-green-700 mb-6">
-            {name} has been {isEdit ? 'updated' : 'added'} to your store
+            {name} has been {isEdit ? 'updated' : 'added'} to your inventory
           </p>
           <button
             onClick={handleCancel}
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Back to Dashboard
+            Back to Products
           </button>
         </div>
       ) : (
@@ -106,14 +132,14 @@ function CustomerFormContent({
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Name *
+                Product Name *
               </label>
               <input
                 id="name"
                 type="text"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                placeholder="Enter customer name"
+                placeholder="Enter product name"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
                 required
               />
@@ -121,17 +147,58 @@ function CustomerFormContent({
 
             <div>
               <label
-                htmlFor="phone"
+                htmlFor="price"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Phone Number
+                Price ($)
               </label>
               <input
-                id="phone"
-                type="tel"
-                value={phone}
-                onChange={e => setPhone(e.target.value)}
-                placeholder="Enter phone number (optional)"
+                id="price"
+                type="number"
+                step="0.01"
+                min="0"
+                value={price}
+                onChange={e => setPrice(e.target.value)}
+                placeholder="0.00"
+                inputMode="decimal"
+                className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
+                required
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="stockQuantity"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Stock Quantity
+              </label>
+              <input
+                id="stockQuantity"
+                type="number"
+                min="0"
+                value={stockQuantity}
+                onChange={e => setStockQuantity(e.target.value)}
+                placeholder="0"
+                inputMode="numeric"
+                className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
+                required
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="unit"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Unit (optional)
+              </label>
+              <input
+                id="unit"
+                type="text"
+                value={unit}
+                onChange={e => setUnit(e.target.value)}
+                placeholder="e.g., kg, liter, piece"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
               />
             </div>
@@ -143,7 +210,7 @@ function CustomerFormContent({
               disabled={submitting || !name.trim()}
               className="flex-1 py-4 px-6 border border-transparent text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {submitting ? 'Saving...' : 'Save Customer'}
+              {submitting ? 'Saving...' : 'Save Product'}
             </button>
             <button
               type="button"
@@ -159,7 +226,7 @@ function CustomerFormContent({
   )
 }
 
-export default function NewCustomerPage() {
+export default function NewProductPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50">
@@ -169,7 +236,7 @@ export default function NewCustomerPage() {
               <div className="flex items-center">
                 <button
                   onClick={() => window.history.back()}
-                  className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors mr-4"
+                  className="text-gray-600 hover:text-gray-900 mr-4"
                 >
                   <ArrowLeft className="h-5 w-5" />
                 </button>
@@ -181,7 +248,7 @@ export default function NewCustomerPage() {
 
         <main className="max-w-2xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
-            <CustomerFormContent />
+            <ProductFormContent />
           </div>
         </main>
       </div>

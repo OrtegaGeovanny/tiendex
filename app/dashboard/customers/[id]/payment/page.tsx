@@ -212,7 +212,7 @@ function PaymentContent() {
                 <button
                   type="button"
                   onClick={() => setAmount(customer.totalDebt.toFixed(2))}
-                  className="text-sm text-indigo-600 hover:text-indigo-700"
+                  className="px-3 py-2 text-base font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors"
                 >
                   Pay Full Amount (${customer.totalDebt.toFixed(2)})
                 </button>
@@ -272,7 +272,7 @@ export default function PaymentPage() {
           <div className="flex justify-between h-16 items-center">
             <button
               onClick={() => window.history.back()}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
               Back

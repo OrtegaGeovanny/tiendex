@@ -6,6 +6,7 @@ import { ArrowLeft, Phone, DollarSign, CreditCard } from 'lucide-react'
 import { getCustomer } from '@/lib/firebase/customers'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import { Customer } from '@/lib/firebase/types'
+import { motion } from 'framer-motion'
 
 export default function CustomerDetailPage() {
   const { user } = useAuth()
@@ -58,7 +59,7 @@ export default function CustomerDetailPage() {
             <div className="flex justify-between h-16 items-center">
               <button
                 onClick={goBack}
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+                className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
                 Back
@@ -84,7 +85,7 @@ export default function CustomerDetailPage() {
           <div className="flex justify-between h-16 items-center">
             <button
               onClick={goBack}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
               Back
@@ -95,7 +96,12 @@ export default function CustomerDetailPage() {
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
-          <div className="bg-white shadow rounded-lg">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white shadow rounded-lg overflow-hidden"
+          >
             <div className="px-4 py-5 sm:p-6">
               <div className="flex justify-between items-start mb-6">
                 <h1 className="text-2xl font-bold text-gray-900">
@@ -106,7 +112,7 @@ export default function CustomerDetailPage() {
                     onClick={() =>
                       router.push(`/dashboard/customers/${customer.id}/payment`)
                     }
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex items-center px-4 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]"
                   >
                     <CreditCard className="w-5 h-5 mr-2" />
                     Record Payment
@@ -172,7 +178,7 @@ export default function CustomerDetailPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </main>
     </div>
