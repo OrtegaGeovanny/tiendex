@@ -26,6 +26,9 @@ after each iteration and it's included in prompts for context.
 - **CRUD Helper Pattern**: Use addDoc for create (auto-generates ID), updateDoc for updates, deleteDoc for deletion, with Timestamp.now() for createdAt/updatedAt (lib/firebase/products.ts)
 - **Partial Update Pattern**: Use TypeScript optional fields in input interfaces (UpdateProductInput, UpdateCustomerInput) to allow partial document updates
 - **Field Sanitization Pattern**: Trim string inputs (like name) with .trim() to remove leading/trailing whitespace before database operations (lib/firebase/products.ts)
+- **Phone Mockup Pattern**: Use nested divs with rounded borders (rounded-[2.5rem]), gradient blurs, and shadows to create realistic phone frames. Inner container with fixed dimensions (280x560px) for screen content (components/Screenshots.tsx)
+- **Parallax Scroll Pattern**: Use useScroll with target ref to track element visibility, useTransform to map scrollProgress to y-axis movement for smooth parallax effects tied to scroll (components/Screenshots.tsx)
+- **Staggered Animation Pattern**: Multiple elements with incrementing delay values (0, 0.2, 0.4) create sequential reveal animations when combined with whileInView and viewport={{ once: true }} (components/Screenshots.tsx)
 
 ---
 
@@ -386,5 +389,41 @@ after each iteration and it's included in prompts for context.
 - CRUD Helper Pattern: Use addDoc for create (auto-generates ID), updateDoc for updates, deleteDoc for deletion
 - Partial Update Pattern: Use TypeScript optional fields in input interfaces to allow partial updates
 - Field Sanitization: Trim string inputs (like name) to remove leading/trailing whitespace
+
+---
+
+## [2025-02-14] - tiendexApp-sfb.7
+
+- Implemented Demo/Screenshots section with 3 interactive phone mockups
+- Created Screenshots component with phone frame design (280x560px)
+- Added mockups for: Customer list view, Credit entry (transaction) view, Product list view
+- Implemented Framer Motion scroll animations with staggered entrance effects
+- Added subtle parallax effect using useScroll and useTransform hooks
+- Included hover animations on phone mockups with spring physics
+- Updated app/page.tsx to include Screenshots section between Features and Footer
+- All quality checks pass: npm run typecheck and npm run lint
+
+**Files changed:**
+
+- components/Screenshots.tsx - New component with phone mockups and animations
+- app/page.tsx - Added Screenshots import and component
+
+**Learnings:**
+
+- Phone mockups can be created using CSS without actual images, using rounded borders and gradients
+- Framer Motion useScroll and useTransform create smooth parallax effects tied to scroll position
+- whileInView with viewport={{ once: true }} ensures animations only play once when scrolled into view
+- Staggered delays (0, 0.2, 0.4) create sequential entrance animations for multiple items
+- Gradient blur effects behind elements add depth and visual interest
+- Mobile-first responsive design uses flex-col on mobile, lg:flex-row for desktop
+- Phone frame dimensions (280x560px) mimic modern smartphone aspect ratios
+- Dark mode support requires explicit dark: variants for all colors
+
+**Patterns discovered:**
+
+- Phone Mockup Pattern: Use nested divs with rounded borders, gradients, and shadows to create phone frame, inner container for screen content
+- Parallax Scroll Pattern: useScroll to track element, useTransform to map scrollProgress to y-axis movement
+- Staggered Animation Pattern: Multiple elements with incrementing delay values (0, 0.2, 0.4) for sequential reveal
+- Mockup Content Pattern: Create simplified UI representations using standard Tailwind components to showcase app features
 
 ---
