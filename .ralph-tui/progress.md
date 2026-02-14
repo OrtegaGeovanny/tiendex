@@ -570,3 +570,38 @@ after each iteration and it's included in prompts for context.
 - Success screen shows new balance and provides options to record another payment or view customer details
 
 ---
+
+## [2025-02-14] - tiendexApp-sfb.19 (Verification 2)
+
+- Verified existing implementation from 2025-02-14 meets all acceptance criteria
+- Confirmed quality checks pass: npm run typecheck and npm run lint
+- No changes required - feature already fully implemented
+- Customer list at /dashboard/customers with all required features:
+  - List format with vertical layout for better readability of debt amounts
+  - Sort options: Highest Debt (default), Alphabetical (A-Z), Recent Activity
+  - Search/filter by customer name with case-insensitive matching
+  - Visual "Due" badge (red) for customers with outstanding debt (> 0)
+  - "Add Customer" button that navigates to /dashboard/customers/new
+  - Tap/click on customer card navigates to /dashboard/customers/[id]
+  - Empty state with User icon when no customers exist
+  - Loading state with centered spinner while fetching data
+  - Mobile-optimized with large, readable text-2xl debt amounts
+  - Color coding (red for debt, green for no debt) for immediate visual feedback
+
+**Files verified:**
+
+- app/dashboard/customers/page.tsx - All functionality confirmed (lines 1-193)
+- lib/firebase/customers.ts - All helper functions confirmed (getCustomers, etc.)
+- lib/firebase/types.ts - All interfaces confirmed (Customer, CreateCustomerInput, UpdateCustomerInput)
+
+**Learnings:**
+
+- Always check progress.md first to avoid duplicate work - the feature was already implemented
+- Existing implementations may already meet all requirements, just need verification
+- Quality gates (typecheck, lint) should always be run even for verification tasks
+- Sorting with useMemo optimizes performance when filtering/sorting depends on multiple state variables
+- Vertical list layout is superior to grid for displaying comparable numerical data (debt amounts)
+- Large text-2xl font for key metrics improves mobile readability significantly
+- Default sort should be most actionable option (highest debt) for customer lists
+
+---
