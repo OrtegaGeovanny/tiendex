@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ArrowRight, Store } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Hero() {
   return (
@@ -50,18 +51,20 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <motion.button
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow:
-                    '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg font-bold rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
-              >
-                Comenzar Gratis
-                <ArrowRight size={20} />
-              </motion.button>
+              <Link href="/register">
+                <motion.button
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow:
+                      '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg font-bold rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  Comenzar Gratis
+                  <ArrowRight size={20} />
+                </motion.button>
+              </Link>
             </motion.div>
 
             <motion.p
