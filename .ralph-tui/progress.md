@@ -427,3 +427,45 @@ after each iteration and it's included in prompts for context.
 - Mockup Content Pattern: Create simplified UI representations using standard Tailwind components to showcase app features
 
 ---
+
+## [2025-02-14] - tiendexApp-sfb.24
+
+- Implemented payment recording feature accessible from customer detail page
+- Updated Transaction types to support payments without product info (productId, productName, quantity, price made optional)
+- Added notes field to Transaction type for payment documentation
+- Updated createTransaction to validate payment amount doesn't exceed debt
+- Created payment recording page at /dashboard/customers/[id]/payment/page.tsx with mobile-optimized form
+- Payment form shows customer name, current debt, amount input (defaults to full debt), optional notes
+- Added "Pay Full Amount" quick action button for convenience
+- Implemented success feedback showing new balance after payment
+- Added error handling for invalid payments (zero/negative, exceeding debt)
+- Used inputMode="decimal" for mobile-optimized numeric keyboard
+- Added "Record Payment" button to customer detail page (only visible when customer has debt)
+- Real-time new balance calculation displayed before submitting payment
+
+**Files changed:**
+
+- lib/firebase/types.ts - Made productId, productName, quantity, price optional in Transaction and CreateTransactionInput, added notes field
+- lib/firebase/transactions.ts - Added validation to prevent payments exceeding debt
+- app/dashboard/customers/[id]/payment/page.tsx - New payment recording page
+- app/dashboard/customers/[id]/page.tsx - Added "Record Payment" button when customer has debt
+
+**Learnings:**
+
+- Transaction types needed to be flexible to support both credit (with product) and payment (without product) transactions
+- inputMode="decimal" on number inputs provides mobile-optimized numeric keyboard for better UX
+- Real-time balance calculation provides instant feedback to users before submitting
+- Quick action buttons (e.g., "Pay Full Amount") improve user experience by reducing manual input
+- Success feedback should show the new balance to confirm the payment was processed correctly
+- Conditional rendering of the "Record Payment" button (only when debt > 0) prevents unnecessary UI elements
+- Payment validation (cannot exceed outstanding balance) prevents logical errors in the system
+- Using absolute positioning with backdrop for success banners creates a clean, focused feedback experience
+
+**Patterns discovered:**
+
+- Payment Recording Pattern: Form with customer info, current balance display, amount input (defaults to full debt), optional notes, real-time new balance calculation, validation (amount <= debt), success feedback showing new balance
+- Mobile Numeric Input Pattern: Use inputMode="decimal" on number inputs for mobile-optimized numeric keyboard
+- Conditional Button Pattern: Show action buttons only when relevant (e.g., Record Payment button only when debt > 0)
+- Quick Action Pattern: Provide "Pay Full Amount" button to auto-fill maximum valid payment amount
+
+---

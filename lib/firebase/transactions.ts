@@ -46,7 +46,10 @@ export async function createTransaction(
       let newDebt = currentDebt
       if (input.type === 'credit') {
         newDebt = currentDebt + input.totalAmount
-      } else {
+      } else if (input.type === 'payment') {
+        if (input.totalAmount > currentDebt) {
+          throw new Error('Payment amount cannot exceed outstanding balance')
+        }
         newDebt = Math.max(0, currentDebt - input.totalAmount)
       }
 

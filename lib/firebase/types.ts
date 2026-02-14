@@ -49,12 +49,13 @@ export interface Transaction {
   id: string
   customerId: string
   customerName: string
-  productId: string
-  productName: string
-  quantity: number
-  price: number
+  productId?: string | null
+  productName?: string | null
+  quantity?: number | null
+  price?: number | null
   totalAmount: number
   type: 'credit' | 'payment'
+  notes?: string | null
   createdAt: Timestamp
   updatedAt: Timestamp
 }
@@ -62,12 +63,13 @@ export interface Transaction {
 export interface CreateTransactionInput {
   customerId: string
   customerName: string
-  productId: string
-  productName: string
-  quantity: number
-  price: number
+  productId?: string | null
+  productName?: string | null
+  quantity?: number | null
+  price?: number | null
   totalAmount: number
   type: 'credit' | 'payment'
+  notes?: string | null
 }
 
 export interface Notification {
