@@ -66,8 +66,8 @@ function CustomersMockup() {
   return (
     <div className="h-full flex flex-col bg-gray-50 dark:bg-gray-800">
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-6">
-        <h4 className="text-white text-lg font-semibold">Customers</h4>
-        <p className="text-blue-100 text-sm">3 customers</p>
+        <h4 className="text-white text-lg font-semibold">Clientes</h4>
+        <p className="text-blue-100 text-sm">3 clientes</p>
       </div>
 
       <div className="p-4 space-y-3 flex-1 overflow-hidden">
@@ -93,7 +93,7 @@ function CustomersMockup() {
                 )}
                 {i === 2 && (
                   <p className="text-xs text-red-600 font-medium">
-                    Balance: $45.00
+                    Saldo: $45.00
                   </p>
                 )}
               </div>
@@ -104,7 +104,7 @@ function CustomersMockup() {
 
       <div className="absolute bottom-20 left-4 right-4">
         <button className="w-full bg-indigo-600 text-white py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-2">
-          <span>Add Customer</span>
+          <span>Agregar Cliente</span>
         </button>
       </div>
     </div>
@@ -115,14 +115,14 @@ function TransactionMockup() {
   return (
     <div className="h-full flex flex-col bg-gray-50 dark:bg-gray-800">
       <div className="bg-gradient-to-r from-green-600 to-teal-600 px-4 py-6">
-        <h4 className="text-white text-lg font-semibold">New Transaction</h4>
-        <p className="text-green-100 text-sm">Quick credit entry</p>
+        <h4 className="text-white text-lg font-semibold">Nueva Transacción</h4>
+        <p className="text-green-100 text-sm">Entrada rápida de crédito</p>
       </div>
 
       <div className="p-4 space-y-4 flex-1">
         <div>
           <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
-            Customer
+            Cliente
           </label>
           <div className="bg-white dark:bg-gray-700 rounded-lg p-3 flex items-center justify-between">
             <span className="text-sm text-gray-900 dark:text-white">
@@ -134,7 +134,7 @@ function TransactionMockup() {
 
         <div>
           <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
-            Product
+            Producto
           </label>
           <div className="bg-white dark:bg-gray-700 rounded-lg p-3 flex items-center justify-between">
             <div>
@@ -149,7 +149,7 @@ function TransactionMockup() {
 
         <div>
           <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
-            Quantity
+            Cantidad
           </label>
           <div className="bg-white dark:bg-gray-700 rounded-lg p-3 flex items-center justify-between">
             <span className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -168,7 +168,7 @@ function TransactionMockup() {
 
         <div className="bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-lg p-4">
           <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-            Total Amount
+            Monto Total
           </p>
           <p className="text-3xl font-bold text-green-600 dark:text-green-400">
             $44.00
@@ -178,7 +178,7 @@ function TransactionMockup() {
 
       <div className="absolute bottom-20 left-4 right-4">
         <button className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-3 rounded-xl text-sm font-semibold">
-          Record Transaction
+          Registrar Transacción
         </button>
       </div>
     </div>
@@ -189,8 +189,8 @@ function ProductsMockup() {
   return (
     <div className="h-full flex flex-col bg-gray-50 dark:bg-gray-800">
       <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-6">
-        <h4 className="text-white text-lg font-semibold">Products</h4>
-        <p className="text-purple-100 text-sm">Inventory management</p>
+        <h4 className="text-white text-lg font-semibold">Productos</h4>
+        <p className="text-purple-100 text-sm">Gestión de inventario</p>
       </div>
 
       <div className="p-4 space-y-3 flex-1 overflow-hidden">
@@ -225,7 +225,7 @@ function ProductsMockup() {
 
       <div className="absolute bottom-20 left-4 right-4">
         <button className="w-full bg-purple-600 text-white py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-2">
-          <span>Add Product</span>
+          <span>Agregar Producto</span>
         </button>
       </div>
     </div>
