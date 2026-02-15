@@ -762,3 +762,31 @@ after each iteration and it's included in prompts for context.
 - List Item Pattern: Use flex with gap for spacing, rounded cards with bg-\* for visual grouping, icons in circular containers for consistency
 
 ---
+
+## [2025-02-14] - tiendexApp-sfb.22
+
+- Verified transaction data model already fully implemented
+- Fixed duplicate interface declarations in types.ts that were causing TypeScript errors
+- Confirmed Firestore collection structure: /stores/{storeId}/transactions/{transactionId}
+- Transaction schema complete: customerId, type ("credit" | "payment"), totalAmount, productId (for credits), productName (denormalized), timestamp (createdAt, updatedAt), notes (optional)
+- TypeScript interfaces confirmed: Transaction and CreateTransactionInput
+- Firestore security rules confirmed: authenticated users can CRUD their own store's transactions (lines 30-37 in firestore.rules)
+- Customer debt update logic confirmed: uses runTransaction for atomic updates (lines 31-60 in transactions.ts)
+- Quality checks pass: npm run typecheck and npm run lint
+
+**Files changed:**
+
+- lib/firebase/types.ts - Removed duplicate interface declarations and fixed UpdateProductInput stockQuantity modifier
+
+**Learnings:**
+
+- Transaction data model was already implemented in previous iterations (tiendexApp-sfb.23 and tiendexApp-sfb.24)
+- Always check progress.md first to understand existing implementations before starting new work
+- Duplicate interface declarations cause TypeScript compilation errors with confusing messages about modifiers
+- UpdateProductInput should have optional fields (stockQuantity?: number) to allow partial updates
+- runTransaction is essential for atomic operations that must update multiple documents (transaction + customer debt)
+- Firestore security rules use helper functions (isStoreOwner) for cleaner, more maintainable permissions
+- Transaction types are flexible - productId, productName, quantity, price are optional for payment transactions
+- Customer debt is updated atomically with transaction creation using runTransaction
+
+---
