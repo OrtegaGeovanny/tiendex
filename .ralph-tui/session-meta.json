@@ -1,14 +1,14 @@
 {
-  "id": "f9350cd8-874c-4849-9d48-d1cdc35168aa",
-  "status": "interrupted",
-  "startedAt": "2026-02-13T18:56:17.459Z",
-  "updatedAt": "2026-02-14T22:19:34.398Z",
-  "agentPlugin": "claude",
-  "trackerPlugin": "json",
+  "id": "d24dcdb9-b949-4dd6-b317-9538f7130bf1",
+  "status": "running",
+  "startedAt": "2026-02-15T03:56:01.289Z",
+  "updatedAt": "2026-02-15T03:56:01.289Z",
+  "agentPlugin": "opencode",
+  "trackerPlugin": "beads",
+  "epicId": "tiendexApp-sfb",
   "currentIteration": 0,
   "maxIterations": 10,
   "totalTasks": 0,
   "tasksCompleted": 0,
-  "cwd": "/Users/geovannyortega/Documents/tiendex/tiendexApp",
-  "endedAt": "2026-02-14T22:19:34.398Z"
+  "cwd": "/Users/geovannyortega/Documents/tiendex/tiendexApp"
 }
