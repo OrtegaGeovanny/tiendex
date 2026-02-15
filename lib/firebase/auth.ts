@@ -2,6 +2,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
+  sendPasswordResetEmail,
   User,
 } from 'firebase/auth'
 import { getFirebaseAuth } from './client'
@@ -52,6 +53,16 @@ export async function signOut(): Promise<void> {
     await firebaseSignOut(auth)
   } catch (error) {
     console.error('Error signing out:', error)
+    throw new Error(getFirebaseErrorMessage(error))
+  }
+}
+
+export async function resetPassword(email: string): Promise<void> {
+  try {
+    const auth = getFirebaseAuth()
+    await sendPasswordResetEmail(auth, email)
+  } catch (error) {
+    console.error('Error resetting password:', error)
     throw new Error(getFirebaseErrorMessage(error))
   }
 }

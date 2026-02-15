@@ -34,6 +34,7 @@ function DashboardContent() {
             customerName: customer.name,
             debtAmount: customer.totalDebt,
             message: `has an outstanding balance of $${customer.totalDebt.toFixed(2)}`,
+            type: 'reminder',
           })
         }
       }

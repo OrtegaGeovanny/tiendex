@@ -103,10 +103,12 @@ export function NotificationPanel({ isOpen, onClose }: NotificationPanelProps) {
                       <p className="text-sm text-gray-600 mt-1">
                         {notification.message}
                       </p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Outstanding balance: $
-                        {notification.debtAmount.toFixed(2)}
-                      </p>
+                      {notification.debtAmount !== undefined && (
+                        <p className="text-xs text-gray-500 mt-1">
+                          Outstanding balance: $
+                          {notification.debtAmount.toFixed(2)}
+                        </p>
+                      )}
                     </div>
                     <button
                       onClick={e => handleDismiss(e, notification.id)}
