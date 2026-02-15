@@ -64,10 +64,10 @@ function CustomersListContent() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Customers</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Clientes</h1>
           <p className="text-gray-600 mt-1">
             {customers.length}{' '}
-            {customers.length === 1 ? 'customer' : 'customers'}
+            {customers.length === 1 ? 'cliente' : 'clientes'}
           </p>
         </div>
         <Link
@@ -75,7 +75,7 @@ function CustomersListContent() {
           className="flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
         >
           <Plus className="w-5 h-5" />
-          <span>Add Customer</span>
+          <span>Agregar Cliente</span>
         </Link>
       </div>
 
@@ -84,7 +84,7 @@ function CustomersListContent() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
           <input
             type="text"
-            placeholder="Search customers..."
+            placeholder="Buscar clientes..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-lg"
@@ -97,9 +97,9 @@ function CustomersListContent() {
             onChange={e => setSortBy(e.target.value as SortOption)}
             className="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-lg appearance-none bg-white"
           >
-            <option value="highest-debt">Highest Debt</option>
+            <option value="highest-debt">Mayor Deuda</option>
             <option value="alphabetical">A-Z</option>
-            <option value="recent-activity">Recent Activity</option>
+            <option value="recent-activity">Actividad Reciente</option>
           </select>
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
             <svg
@@ -127,12 +127,12 @@ function CustomersListContent() {
         <div className="bg-white rounded-lg shadow p-12 text-center">
           <User className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">
-            {searchQuery ? 'No customers found' : 'No customers yet'}
+            {searchQuery ? 'No se encontraron clientes' : 'Aún no hay clientes'}
           </h3>
           <p className="text-gray-600 mb-6">
             {searchQuery
-              ? 'Try a different search term'
-              : 'Get started by adding your first customer'}
+              ? 'Intenta con otro término de búsqueda'
+              : 'Comienza agregando tu primer cliente'}
           </p>
           {!searchQuery && (
             <Link
@@ -140,7 +140,7 @@ function CustomersListContent() {
               className="inline-flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
             >
               <Plus className="w-5 h-5" />
-              <span>Add Customer</span>
+              <span>Agregar Cliente</span>
             </Link>
           )}
         </div>

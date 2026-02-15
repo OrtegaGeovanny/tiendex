@@ -36,31 +36,31 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    label: 'Dashboard',
+    label: 'Panel',
     href: '/dashboard',
     icon: LayoutDashboard,
     mobileOnly: false,
   },
   {
-    label: 'Customers',
+    label: 'Clientes',
     href: '/dashboard/customers',
     icon: Users,
     mobileOnly: false,
   },
   {
-    label: 'Products',
+    label: 'Productos',
     href: '/dashboard/products',
     icon: Package,
     mobileOnly: false,
   },
   {
-    label: 'Add Transaction',
+    label: 'Nueva Venta',
     href: '/dashboard/transactions/new',
     icon: PlusCircle,
     mobileOnly: false,
   },
   {
-    label: 'Settings',
+    label: 'Configuración',
     href: '/dashboard/settings',
     icon: Settings,
     mobileOnly: false,
@@ -199,7 +199,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
                       className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                     >
                       <LogOut className="w-4 h-4 mr-2" />
-                      Sign out
+                      Cerrar sesión
                     </button>
                   </motion.div>
                 )}
@@ -246,7 +246,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
                       className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                     >
                       <LogOut className="w-4 h-4 mr-2" />
-                      Sign out
+                      Cerrar sesión
                     </button>
                   </motion.div>
                 )}
