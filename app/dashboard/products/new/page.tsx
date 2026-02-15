@@ -37,19 +37,19 @@ function ProductFormContent({
     setError(null)
 
     if (!name.trim()) {
-      setError('Product name is required')
+      setError('El nombre del producto es requerido')
       return
     }
 
     const priceNum = parseFloat(price)
     if (isNaN(priceNum) || priceNum < 0) {
-      setError('Please enter a valid price')
+      setError('Por favor ingresa un precio válido')
       return
     }
 
     const stockNum = parseInt(stockQuantity)
     if (isNaN(stockNum) || stockNum < 0) {
-      setError('Please enter a valid stock quantity')
+      setError('Por favor ingresa una cantidad de stock válida')
       return
     }
 
@@ -75,7 +75,7 @@ function ProductFormContent({
       }
       setSuccess(true)
     } catch (err) {
-      setError('Failed to save product')
+      setError('Error al guardar producto')
       console.error(err)
     } finally {
       setSubmitting(false)
@@ -90,12 +90,12 @@ function ProductFormContent({
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900">
-          {isEdit ? 'Edit Product' : 'Add Product'}
+          {isEdit ? 'Editar Producto' : 'Agregar Producto'}
         </h1>
         <p className="mt-2 text-gray-600">
           {isEdit
-            ? 'Update product information'
-            : 'Add a new product to your inventory'}
+            ? 'Actualizar información del producto'
+            : 'Agregar un nuevo producto a tu inventario'}
         </p>
       </div>
 
@@ -112,16 +112,16 @@ function ProductFormContent({
             <Check className="h-8 w-8 text-green-600" />
           </div>
           <h3 className="text-lg font-semibold text-green-900 mb-2">
-            {isEdit ? 'Product Updated!' : 'Product Added!'}
+            {isEdit ? '¡Producto Actualizado!' : '¡Producto Agregado!'}
           </h3>
           <p className="text-green-700 mb-6">
-            {name} has been {isEdit ? 'updated' : 'added'} to your inventory
+            {name} ha sido {isEdit ? 'actualizado' : 'agregado'} a tu inventario
           </p>
           <button
             onClick={handleCancel}
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Back to Products
+            Volver a Productos
           </button>
         </div>
       ) : (
@@ -132,14 +132,14 @@ function ProductFormContent({
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Product Name *
+                Nombre del Producto *
               </label>
               <input
                 id="name"
                 type="text"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                placeholder="Enter product name"
+                placeholder="Ingresa nombre del producto"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
                 required
               />
@@ -150,7 +150,7 @@ function ProductFormContent({
                 htmlFor="price"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Price ($)
+                Precio ($)
               </label>
               <input
                 id="price"
@@ -171,7 +171,7 @@ function ProductFormContent({
                 htmlFor="stockQuantity"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Stock Quantity
+                Cantidad en Stock
               </label>
               <input
                 id="stockQuantity"
@@ -191,14 +191,14 @@ function ProductFormContent({
                 htmlFor="unit"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Unit (optional)
+                Unidad (opcional)
               </label>
               <input
                 id="unit"
                 type="text"
                 value={unit}
                 onChange={e => setUnit(e.target.value)}
-                placeholder="e.g., kg, liter, piece"
+                placeholder="ej., kg, litro, pieza"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
               />
             </div>
@@ -210,14 +210,14 @@ function ProductFormContent({
               disabled={submitting || !name.trim()}
               className="flex-1 py-4 px-6 border border-transparent text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {submitting ? 'Saving...' : 'Save Product'}
+              {submitting ? 'Guardando...' : 'Guardar Producto'}
             </button>
             <button
               type="button"
               onClick={handleCancel}
               className="flex-1 py-4 px-6 border border-gray-300 text-lg font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Cancel
+              Cancelar
             </button>
           </div>
         </form>

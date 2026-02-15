@@ -36,10 +36,10 @@ function EditProductFormContent() {
           setStockQuantity(product.stockQuantity.toString())
           setUnit(product.unit || '')
         } else {
-          setError('Product not found')
+          setError('Producto no encontrado')
         }
       } catch (err) {
-        setError('Failed to load product')
+        setError('Error al cargar producto')
         console.error(err)
       } finally {
         setLoading(false)
@@ -54,19 +54,19 @@ function EditProductFormContent() {
     setError(null)
 
     if (!name.trim()) {
-      setError('Product name is required')
+      setError('El nombre del producto es requerido')
       return
     }
 
     const priceNum = parseFloat(price)
     if (isNaN(priceNum) || priceNum < 0) {
-      setError('Please enter a valid price')
+      setError('Por favor ingresa un precio válido')
       return
     }
 
     const stockNum = parseInt(stockQuantity)
     if (isNaN(stockNum) || stockNum < 0) {
-      setError('Please enter a valid stock quantity')
+      setError('Por favor ingresa una cantidad de stock válida')
       return
     }
 
@@ -83,7 +83,7 @@ function EditProductFormContent() {
       })
       setSuccess(true)
     } catch (err) {
-      setError('Failed to save product')
+      setError('Error al guardar producto')
       console.error(err)
     } finally {
       setSubmitting(false)
@@ -103,7 +103,7 @@ function EditProductFormContent() {
       await deleteProduct(user.uid, productId)
       router.push('/dashboard/products')
     } catch (err) {
-      setError('Failed to delete product')
+      setError('Error al eliminar producto')
       console.error(err)
       setShowDeleteConfirm(false)
     } finally {
@@ -122,8 +122,8 @@ function EditProductFormContent() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Edit Product</h1>
-        <p className="mt-2 text-gray-600">Update product information</p>
+        <h1 className="text-3xl font-bold text-gray-900">Editar Producto</h1>
+        <p className="mt-2 text-gray-600">Actualizar información del producto</p>
       </div>
 
       {error && (
@@ -139,14 +139,14 @@ function EditProductFormContent() {
             <Check className="h-8 w-8 text-green-600" />
           </div>
           <h3 className="text-lg font-semibold text-green-900 mb-2">
-            Product Updated!
+            ¡Producto Actualizado!
           </h3>
-          <p className="text-green-700 mb-6">{name} has been updated</p>
+          <p className="text-green-700 mb-6">{name} ha sido actualizado</p>
           <button
             onClick={handleCancel}
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Back to Products
+            Volver a Productos
           </button>
         </div>
       ) : (
@@ -157,14 +157,14 @@ function EditProductFormContent() {
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Product Name *
+                Nombre del Producto *
               </label>
               <input
                 id="name"
                 type="text"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                placeholder="Enter product name"
+                placeholder="Ingresa nombre del producto"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
                 required
               />
@@ -175,7 +175,7 @@ function EditProductFormContent() {
                 htmlFor="price"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Price ($)
+                Precio ($)
               </label>
               <input
                 id="price"
@@ -196,7 +196,7 @@ function EditProductFormContent() {
                 htmlFor="stockQuantity"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Stock Quantity
+                Cantidad en Stock
               </label>
               <input
                 id="stockQuantity"
@@ -216,14 +216,14 @@ function EditProductFormContent() {
                 htmlFor="unit"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Unit (optional)
+                Unidad (opcional)
               </label>
               <input
                 id="unit"
                 type="text"
                 value={unit}
                 onChange={e => setUnit(e.target.value)}
-                placeholder="e.g., kg, liter, piece"
+                placeholder="ej., kg, litro, pieza"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
               />
             </div>
@@ -236,7 +236,7 @@ function EditProductFormContent() {
             className="w-full py-3 px-6 border border-red-300 text-base font-medium rounded-lg text-red-700 bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             <Trash2 className="h-5 w-5" />
-            Delete Product
+            Eliminar Producto
           </button>
 
           <div className="flex gap-3">
@@ -245,14 +245,14 @@ function EditProductFormContent() {
               disabled={submitting || !name.trim()}
               className="flex-1 py-4 px-6 border border-transparent text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {submitting ? 'Saving...' : 'Save Product'}
+              {submitting ? 'Guardando...' : 'Guardar Producto'}
             </button>
             <button
               type="button"
               onClick={handleCancel}
               className="flex-1 py-4 px-6 border border-gray-300 text-lg font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Cancel
+              Cancelar
             </button>
           </div>
         </form>
@@ -262,11 +262,11 @@ function EditProductFormContent() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-xl">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Delete Product?
+              ¿Eliminar Producto?
             </h3>
             <p className="text-gray-600 mb-6">
-              Are you sure you want to delete &quot;{name}&quot;? This action
-              cannot be undone.
+              ¿Estás seguro de que quieres eliminar &quot;{name}&quot;? Esta acción
+              no se puede deshacer.
             </p>
             <div className="flex gap-3">
               <button
@@ -274,7 +274,7 @@ function EditProductFormContent() {
                 disabled={deleting}
                 className="flex-1 py-3 px-4 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 onClick={handleDelete}
@@ -282,11 +282,11 @@ function EditProductFormContent() {
                 className="flex-1 py-3 px-4 border border-transparent text-base font-medium rounded-lg text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {deleting ? (
-                  'Deleting...'
+                  'Eliminando...'
                 ) : (
                   <>
                     <Trash2 className="h-4 w-4" />
-                    Delete
+                    Eliminar
                   </>
                 )}
               </button>

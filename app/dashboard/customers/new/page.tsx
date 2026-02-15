@@ -27,7 +27,7 @@ function CustomerFormContent({
     setError(null)
 
     if (!name.trim()) {
-      setError('Name is required')
+      setError('El nombre es requerido')
       return
     }
 
@@ -49,7 +49,7 @@ function CustomerFormContent({
       }
       setSuccess(true)
     } catch (err) {
-      setError('Failed to save customer')
+      setError('Error al guardar cliente')
       console.error(err)
     } finally {
       setSubmitting(false)
@@ -64,12 +64,12 @@ function CustomerFormContent({
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900">
-          {isEdit ? 'Edit Customer' : 'Add Customer'}
+          {isEdit ? 'Editar Cliente' : 'Agregar Cliente'}
         </h1>
         <p className="mt-2 text-gray-600">
           {isEdit
-            ? 'Update customer information'
-            : 'Add a new customer to your store'}
+            ? 'Actualizar información del cliente'
+            : 'Agregar un nuevo cliente a tu tienda'}
         </p>
       </div>
 
@@ -86,16 +86,16 @@ function CustomerFormContent({
             <Check className="h-8 w-8 text-green-600" />
           </div>
           <h3 className="text-lg font-semibold text-green-900 mb-2">
-            {isEdit ? 'Customer Updated!' : 'Customer Added!'}
+            {isEdit ? '¡Cliente Actualizado!' : '¡Cliente Agregado!'}
           </h3>
           <p className="text-green-700 mb-6">
-            {name} has been {isEdit ? 'updated' : 'added'} to your store
+            {name} ha sido {isEdit ? 'actualizado' : 'agregado'} a tu tienda
           </p>
           <button
             onClick={handleCancel}
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Back to Dashboard
+            Volver al Panel
           </button>
         </div>
       ) : (
@@ -106,14 +106,14 @@ function CustomerFormContent({
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Name *
+                Nombre *
               </label>
               <input
                 id="name"
                 type="text"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                placeholder="Enter customer name"
+                placeholder="Ingresa nombre del cliente"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
                 required
               />
@@ -124,14 +124,14 @@ function CustomerFormContent({
                 htmlFor="phone"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Phone Number
+                Número de Teléfono
               </label>
               <input
                 id="phone"
                 type="tel"
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
-                placeholder="Enter phone number (optional)"
+                placeholder="Ingresa número de teléfono (opcional)"
                 className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
               />
             </div>
@@ -143,14 +143,14 @@ function CustomerFormContent({
               disabled={submitting || !name.trim()}
               className="flex-1 py-4 px-6 border border-transparent text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {submitting ? 'Saving...' : 'Save Customer'}
+              {submitting ? 'Guardando...' : 'Guardar Cliente'}
             </button>
             <button
               type="button"
               onClick={handleCancel}
               className="flex-1 py-4 px-6 border border-gray-300 text-lg font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Cancel
+              Cancelar
             </button>
           </div>
         </form>

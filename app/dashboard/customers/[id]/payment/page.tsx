@@ -31,10 +31,10 @@ function PaymentContent() {
         setCustomer(data)
         setAmount(data.totalDebt.toFixed(2))
       } else {
-        setError('Customer not found')
+        setError('Cliente no encontrado')
       }
     } catch (err) {
-      setError('Failed to load customer details')
+      setError('Error al cargar detalles del cliente')
     } finally {
       setLoading(false)
     }
@@ -52,12 +52,12 @@ function PaymentContent() {
 
     const paymentAmount = parseFloat(amount)
     if (isNaN(paymentAmount) || paymentAmount <= 0) {
-      setError('Please enter a valid payment amount')
+      setError('Por favor ingresa un monto de pago válido')
       return
     }
 
     if (paymentAmount > customer.totalDebt) {
-      setError('Payment amount cannot exceed outstanding balance')
+      setError('El monto de pago no puede exceder el saldo pendiente')
       return
     }
 
@@ -98,7 +98,7 @@ function PaymentContent() {
   if (!customer) {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-        <p className="text-red-800">Customer not found</p>
+        <p className="text-red-800">Cliente no encontrado</p>
       </div>
     )
   }
@@ -111,14 +111,14 @@ function PaymentContent() {
           <Check className="h-8 w-8 text-green-600" />
         </div>
         <h3 className="text-lg font-semibold text-green-900 mb-2">
-          Payment Recorded!
+          ¡Pago Registrado!
         </h3>
         <p className="text-green-700 mb-2">
-          Payment of ${parseFloat(amount).toFixed(2)} received from{' '}
+          Pago de ${parseFloat(amount).toFixed(2)} recibido de{' '}
           {customer.name}
         </p>
         <p className="text-green-800 font-semibold mb-6">
-          New Balance: ${newBalance.toFixed(2)}
+          Nuevo Saldo: ${newBalance.toFixed(2)}
         </p>
         <div className="flex justify-center gap-3">
           <button
@@ -128,13 +128,13 @@ function PaymentContent() {
             }}
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Record Another Payment
+            Registrar Otro Pago
           </button>
           <button
             onClick={() => router.push(`/dashboard/customers/${customer.id}`)}
             className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            View Customer Details
+            Ver Detalles del Cliente
           </button>
         </div>
       </div>
@@ -144,9 +144,9 @@ function PaymentContent() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Record Payment</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Registrar Pago</h1>
         <p className="mt-2 text-gray-600">
-          Record a payment from {customer.name}
+          Registrar un pago de {customer.name}
         </p>
       </div>
 
@@ -161,14 +161,14 @@ function PaymentContent() {
         <div className="bg-white rounded-lg shadow p-6 space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Customer
+              Cliente
             </label>
             <p className="text-lg text-gray-900">{customer.name}</p>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Outstanding Balance
+              Saldo Pendiente
             </label>
             <div className="flex items-center gap-2">
               <DollarSign className="w-5 h-5 text-gray-400" />
@@ -187,7 +187,7 @@ function PaymentContent() {
               htmlFor="amount"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Payment Amount
+              Monto del Pago
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -214,7 +214,7 @@ function PaymentContent() {
                   onClick={() => setAmount(customer.totalDebt.toFixed(2))}
                   className="px-3 py-2 text-base font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors"
                 >
-                  Pay Full Amount (${customer.totalDebt.toFixed(2)})
+                  Pagar Monto Completo (${customer.totalDebt.toFixed(2)})
                 </button>
               </div>
             )}
@@ -225,13 +225,13 @@ function PaymentContent() {
               htmlFor="notes"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Notes (optional)
+              Notas (opcional)
             </label>
             <textarea
               id="notes"
               value={notes}
               onChange={e => setNotes(e.target.value)}
-              placeholder="Add any notes about this payment..."
+              placeholder="Agrega notas sobre este pago..."
               rows={3}
               className="block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
             />
@@ -240,7 +240,7 @@ function PaymentContent() {
           {amount && parseFloat(amount) > 0 && (
             <div className="bg-gray-50 rounded-lg p-4">
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">New Balance</span>
+                <span className="text-gray-600">Nuevo Saldo</span>
                 <span className="text-2xl font-bold text-gray-900">
                   $
                   {Math.max(0, customer.totalDebt - parseFloat(amount)).toFixed(
@@ -257,7 +257,7 @@ function PaymentContent() {
           disabled={submitting || !amount || parseFloat(amount) <= 0}
           className="w-full py-4 px-6 border border-transparent text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {submitting ? 'Recording...' : 'Record Payment'}
+          {submitting ? 'Registrando...' : 'Registrar Pago'}
         </button>
       </form>
     </div>
@@ -275,7 +275,7 @@ export default function PaymentPage() {
               className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
-              Back
+              Volver
             </button>
           </div>
         </div>

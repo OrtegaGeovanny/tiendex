@@ -40,10 +40,10 @@ export default function CustomerDetailPage() {
         setCustomer(data)
         setTransactions(transactionsData)
       } else {
-        setError('Customer not found')
+        setError('Cliente no encontrado')
       }
     } catch (err) {
-      setError('Failed to load customer details')
+      setError('Error al cargar detalles del cliente')
     } finally {
       setLoading(false)
     }
@@ -98,7 +98,7 @@ export default function CustomerDetailPage() {
                 className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
-                Back
+                Volver
               </button>
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function CustomerDetailPage() {
               className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
-              Back
+              Volver
             </button>
           </div>
         </div>
@@ -141,7 +141,7 @@ export default function CustomerDetailPage() {
             <div className="px-4 py-5 sm:p-6">
               <div className="flex justify-between items-start mb-6">
                 <h1 className="text-2xl font-bold text-gray-900">
-                  Customer Details
+                  Detalles del Cliente
                 </h1>
                 <div className="flex gap-3">
                   <button
@@ -153,7 +153,7 @@ export default function CustomerDetailPage() {
                     className="inline-flex items-center px-4 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]"
                   >
                     <Plus className="w-5 h-5 mr-2" />
-                    Give Credit
+                    Dar Crédito
                   </button>
                   {customer && customer.totalDebt > 0 && (
                     <button
@@ -165,7 +165,7 @@ export default function CustomerDetailPage() {
                       className="inline-flex items-center px-4 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]"
                     >
                       <CreditCard className="w-5 h-5 mr-2" />
-                      Record Payment
+                      Registrar Pago
                     </button>
                   )}
                 </div>
@@ -174,7 +174,7 @@ export default function CustomerDetailPage() {
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Name
+                    Nombre
                   </label>
                   <p className="text-lg text-gray-900">{customer?.name}</p>
                 </div>
@@ -182,7 +182,7 @@ export default function CustomerDetailPage() {
                 {customer?.phone && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Phone
+                      Teléfono
                     </label>
                     <div className="flex items-center gap-2">
                       <Phone className="w-5 h-5 text-gray-400" />
@@ -193,7 +193,7 @@ export default function CustomerDetailPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Outstanding Balance
+                    Saldo Pendiente
                   </label>
                   <div className="flex items-center gap-2">
                     <DollarSign className="w-5 h-5 text-gray-400" />
@@ -211,7 +211,7 @@ export default function CustomerDetailPage() {
 
                 <div className="pt-4 border-t">
                   <p className="text-sm text-gray-500">
-                    Created:{' '}
+                    Creado:{' '}
                     {customer?.createdAt
                       ? new Date(
                           customer.createdAt.seconds * 1000
@@ -219,7 +219,7 @@ export default function CustomerDetailPage() {
                       : 'N/A'}
                   </p>
                   <p className="text-sm text-gray-500">
-                    Last updated:{' '}
+                    Última actualización:{' '}
                     {customer?.updatedAt
                       ? new Date(
                           customer.updatedAt.seconds * 1000
@@ -231,7 +231,7 @@ export default function CustomerDetailPage() {
 
               <div className="mt-6 border-t pt-6">
                 <h2 className="text-xl font-bold text-gray-900 mb-4">
-                  Transaction History
+                  Historial de Transacciones
                 </h2>
                 {transactionsWithBalance.length === 0 ? (
                   <div className="text-center py-12">
@@ -239,11 +239,10 @@ export default function CustomerDetailPage() {
                       <Package className="h-8 w-8 text-gray-400" />
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 mb-2">
-                      No transactions yet
+                      Aún no hay transacciones
                     </h3>
                     <p className="text-gray-500 mb-6">
-                      Give credit or record payments for this customer to see
-                      their history here
+                      Da crédito o registra pagos para este cliente para ver su historial aquí
                     </p>
                     <button
                       onClick={() =>
@@ -254,7 +253,7 @@ export default function CustomerDetailPage() {
                       className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       <Plus className="w-5 h-5 mr-2" />
-                      Give Credit
+                      Dar Crédito
                     </button>
                   </div>
                 ) : (
@@ -284,7 +283,7 @@ export default function CustomerDetailPage() {
                             </div>
                             <div>
                               <p className="font-medium text-gray-900">
-                                {tx.type === 'credit' ? 'Credit' : 'Payment'}
+                                {tx.type === 'credit' ? 'Crédito' : 'Pago'}
                               </p>
                               {tx.type === 'credit' && tx.productName && (
                                 <p className="text-sm text-gray-600">
@@ -327,7 +326,7 @@ export default function CustomerDetailPage() {
                             </span>
                           </div>
                           <div>
-                            Balance after:{' '}
+                            Saldo después:{' '}
                             <span
                               className={`font-semibold ${
                                 tx.runningBalance > 0

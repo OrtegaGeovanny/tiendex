@@ -57,9 +57,9 @@ function ProductsContent() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Products</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Productos</h1>
           <p className="mt-2 text-gray-600">
-            Manage your store&apos;s inventory
+            Administra el inventario de tu tienda
           </p>
         </div>
         <button
@@ -67,7 +67,7 @@ function ProductsContent() {
           className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           <Plus className="h-5 w-5 mr-2" />
-          Add Product
+          Agregar Producto
         </button>
       </div>
 
@@ -79,7 +79,7 @@ function ProductsContent() {
           type="text"
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
-          placeholder="Search products..."
+          placeholder="Buscar productos..."
           className="pl-10 block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
         />
       </div>
@@ -90,12 +90,12 @@ function ProductsContent() {
             <Package className="h-8 w-8 text-gray-400" />
           </div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            {searchTerm ? 'No products found' : 'No products yet'}
+            {searchTerm ? 'No se encontraron productos' : 'Aún no hay productos'}
           </h3>
           <p className="text-gray-600 mb-6">
             {searchTerm
-              ? 'Try a different search term'
-              : 'Get started by adding your first product'}
+              ? 'Intenta con otro término de búsqueda'
+              : 'Comienza agregando tu primer producto'}
           </p>
           {!searchTerm && (
             <button
@@ -103,7 +103,7 @@ function ProductsContent() {
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <Plus className="h-5 w-5 mr-2" />
-              Add Product
+              Agregar Producto
             </button>
           )}
         </div>
@@ -124,7 +124,7 @@ function ProductsContent() {
               <p className="text-2xl font-bold text-indigo-600">
                 ${product.price.toFixed(2)}
               </p>
-              <p className="text-sm text-gray-500 mt-1">Tap to edit details</p>
+              <p className="text-sm text-gray-500 mt-1">Toca para editar detalles</p>
             </button>
           ))}
         </div>
@@ -145,7 +145,7 @@ export default function ProductsPage() {
                   onClick={() => window.history.back()}
                   className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors mr-4"
                 >
-                  ← Back
+                  ← Volver
                 </button>
                 <h1 className="text-xl font-bold text-gray-900">TiendexApp</h1>
               </div>
