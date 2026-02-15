@@ -5,7 +5,7 @@ import { useRouter, useParams } from 'next/navigation'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { getProduct } from '@/lib/firebase/products'
-import { ArrowLeft, Check, X } from 'lucide-react'
+import { ArrowLeft, Check, X, Trash2 } from 'lucide-react'
 
 function EditProductFormContent() {
   const { user } = useAuth()
@@ -14,6 +14,8 @@ function EditProductFormContent() {
   const productId = params.id as string
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [name, setName] = useState('')
@@ -90,6 +92,23 @@ function EditProductFormContent() {
 
   const handleCancel = () => {
     router.push('/dashboard/products')
+  }
+
+  const handleDelete = async () => {
+    if (!user) return
+
+    setDeleting(true)
+    try {
+      const { deleteProduct } = await import('@/lib/firebase/products')
+      await deleteProduct(user.uid, productId)
+      router.push('/dashboard/products')
+    } catch (err) {
+      setError('Failed to delete product')
+      console.error(err)
+      setShowDeleteConfirm(false)
+    } finally {
+      setDeleting(false)
+    }
   }
 
   if (loading) {
@@ -210,6 +229,16 @@ function EditProductFormContent() {
             </div>
           </div>
 
+          <button
+            type="button"
+            onClick={() => setShowDeleteConfirm(true)}
+            disabled={submitting}
+            className="w-full py-3 px-6 border border-red-300 text-base font-medium rounded-lg text-red-700 bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          >
+            <Trash2 className="h-5 w-5" />
+            Delete Product
+          </button>
+
           <div className="flex gap-3">
             <button
               type="submit"
@@ -227,6 +256,43 @@ function EditProductFormContent() {
             </button>
           </div>
         </form>
+      )}
+
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-xl">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              Delete Product?
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Are you sure you want to delete &quot;{name}&quot;? This action
+              cannot be undone.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                disabled={deleting}
+                className="flex-1 py-3 px-4 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={deleting}
+                className="flex-1 py-3 px-4 border border-transparent text-base font-medium rounded-lg text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {deleting ? (
+                  'Deleting...'
+                ) : (
+                  <>
+                    <Trash2 className="h-4 w-4" />
+                    Delete
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )

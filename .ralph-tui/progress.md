@@ -19,6 +19,7 @@ after each iteration and it's included in prompts for context.
 - **Success/Error Feedback Pattern**: Use motion components with initial and animate states for smooth appearance of error/success messages. Use AlertCircle for errors and CheckCircle for success with appropriate color schemes
 - **Auth Page Pattern**: Use motion.div for card entrance with blur-3xl background gradients. Center content with max-w-md, use consistent form styling with icons positioned absolutely inside input fields (pl-10)
 - **Password Reset Pattern**: Add link from login page below password input. Reset page includes success state, disables button while loading, and links back to login after sending email
+- **Delete Confirmation Pattern**: Use fixed inset overlay with centered modal dialog. Include two buttons: Cancel (secondary style) and Delete (danger style with red colors). Show loading state on delete button with disabled states.
 
 ## [Feb 14, 2026] - tiendexApp-sfb.12
 
@@ -43,5 +44,29 @@ after each iteration and it's included in prompts for context.
 - Reset password pages should follow same UI patterns as login/register for consistency
 - Optional properties in TypeScript interfaces need proper null checks (e.g., notification.debtAmount)
 - CreateNotificationInput needed type field and optional debtAmount for dashboard notifications
+
+---
+
+## [Feb 14, 2026] - tiendexApp-sfb.17
+
+- Verified add/edit product forms already implemented
+- Added delete product functionality with confirmation dialog to edit page
+- Forms include: name (required), price (required), stock quantity, unit (optional)
+- Form validation for required fields and positive numbers
+- Success and error feedback with motion components
+- Mobile-optimized with inputMode for numeric fields
+- Cancel button navigates back to product list
+
+**Files changed:**
+
+- app/dashboard/products/[id]/edit/page.tsx (added delete functionality)
+
+**Learnings:**
+
+- CRUD forms follow consistent pattern across the codebase
+- Use inputMode="decimal" for price fields and inputMode="numeric" for quantity
+- Confirmation dialogs use fixed inset overlay with centered modal
+- Delete buttons should use danger styling (red colors) to indicate destructive action
+- Import functions dynamically when needed (updateProduct, deleteProduct) to optimize initial load
 
 ---
