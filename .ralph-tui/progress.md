@@ -762,3 +762,38 @@ after each iteration and it's included in prompts for context.
 - List Item Pattern: Use flex with gap for spacing, rounded cards with bg-\* for visual grouping, icons in circular containers for consistency
 
 ---
+
+## [2025-02-14] - tiendexApp-sfb.21
+
+- Implemented transaction history on customer detail page at /dashboard/customers/[id]
+- Added "Give Credit" button that navigates to quick credit entry page
+- Created transaction history list showing: date, type (credit/payment), product name (for credits), amount
+- Implemented running balance calculation using useMemo that shows balance after each transaction
+- Added empty state with helpful message and call-to-action when no transactions exist
+- Used getTransactionsByCustomer to fetch transactions (already sorted by most recent first from backend)
+- Added visual distinction between credits (blue bg, red text, Package icon) and payments (green bg, green text, DollarSign icon)
+- Included staggered animations for transaction list items using Framer Motion
+- Mobile-optimized design with clear visual hierarchy and large touch targets
+
+**Files changed:**
+
+- app/dashboard/customers/[id]/page.tsx - Added transaction history feature (160 new lines)
+
+**Learnings:**
+
+- Running balance calculation should start from current debt and work backwards through time for correct results
+- useMemo is ideal for calculating derived data (running balances) that depends on multiple state variables
+- Transaction history display benefits from visual distinction (color coding, icons) for quick scanning
+- Empty states should provide clear guidance and actionable next steps (button to give credit)
+- Staggered animations with small delays (index * 0.05) create smooth sequential reveal for list items
+- Date formatting with locale options provides user-friendly display (month, day, year, hour, minute)
+- Mobile optimization requires clear visual hierarchy with appropriate spacing and touch targets
+
+**Patterns discovered:**
+
+- Running Balance Pattern: Start with current balance, iterate through transactions from newest to oldest, subtract/add amounts to show balance after each transaction
+- Transaction List Pattern: Show date, type with icon, product name (for credits), amount, and running balance, use color coding for visual distinction, stagger animations for smooth reveal
+- Empty State Pattern: Icon centered in circle, descriptive message, actionable button (primary CTA) to guide users to next steps
+- Transaction Type Pattern: Use color-coded badges (blue for credits, green for payments) with appropriate icons (Package for credits, DollarSign for payments) for quick visual identification
+
+---
