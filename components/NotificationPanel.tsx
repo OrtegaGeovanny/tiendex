@@ -65,7 +65,7 @@ export function NotificationPanel({ isOpen, onClose }: NotificationPanelProps) {
       <div className="fixed inset-0 bg-black bg-opacity-50" onClick={onClose} />
       <div className="relative w-full max-w-md bg-white rounded-lg shadow-xl max-h-[80vh] overflow-hidden">
         <div className="flex items-center justify-between p-4 border-b">
-          <h2 className="text-lg font-semibold text-gray-900">Notifications</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Notificaciones</h2>
           <button
             onClick={onClose}
             className="p-3 hover:bg-gray-100 rounded-full transition-colors"
@@ -82,7 +82,7 @@ export function NotificationPanel({ isOpen, onClose }: NotificationPanelProps) {
           ) : notifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
               <Bell className="w-12 h-12 text-gray-300 mb-3" />
-              <p className="text-gray-500">No notifications</p>
+              <p className="text-gray-500">No hay notificaciones</p>
             </div>
           ) : (
             <div className="divide-y">
@@ -105,7 +105,7 @@ export function NotificationPanel({ isOpen, onClose }: NotificationPanelProps) {
                       </p>
                       {notification.debtAmount !== undefined && (
                         <p className="text-xs text-gray-500 mt-1">
-                          Outstanding balance: $
+                          Saldo pendiente: $
                           {notification.debtAmount.toFixed(2)}
                         </p>
                       )}
@@ -146,7 +146,7 @@ export function NotificationBadge({
     <button
       onClick={handleClick}
       className="relative p-2 hover:bg-gray-100 rounded-full transition-colors"
-      aria-label={`Notifications (${count} unread)`}
+      aria-label={`Notificaciones (${count} sin leer)`}
     >
       <Bell className="w-6 h-6 text-gray-600" />
       {count > 0 && (
