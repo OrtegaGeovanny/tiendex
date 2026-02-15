@@ -37,6 +37,9 @@ after each iteration and it's included in prompts for context.
 - **Mobile Form Input Pattern**: Use inputMode="decimal" for currency inputs, inputMode="numeric" for integers to show appropriate mobile keyboards (app/dashboard/products/new/page.tsx)
 - **Page Transition Animation Pattern**: Use Framer Motion with initial={{ opacity: 0, y: 20 }} and duration: 0.3 for smooth page transitions across dashboard pages (app/dashboard/settings/page.tsx)
 - **Staggered Card Animation Pattern**: Multiple motion.div cards with incrementing delay values (0.1, 0.2, 0.3) create smooth sequential reveal effects (app/dashboard/settings/page.tsx)
+- **Running Balance Pattern**: Calculate running balance by starting from current total debt and iterating through transactions from most recent to oldest, subtracting credits and adding payments, using useMemo for performance optimization (app/dashboard/customers/[id]/page.tsx)
+- **Query Parameter Pre-selection Pattern**: Pass data via URL query parameters to pre-select options on destination pages, use useSearchParams to read them in the receiving component (app/dashboard/transactions/new/page.tsx)
+- **Transaction History Pattern**: Show date, type (credit/payment), product name (for credits), amount, and running balance in card layout with color coding (red for credits, green for payments) and staggered animations (app/dashboard/customers/[id]/page.tsx)
 
 ---
 
@@ -785,7 +788,7 @@ after each iteration and it's included in prompts for context.
 - useMemo is ideal for calculating derived data (running balances) that depends on multiple state variables
 - Transaction history display benefits from visual distinction (color coding, icons) for quick scanning
 - Empty states should provide clear guidance and actionable next steps (button to give credit)
-- Staggered animations with small delays (index * 0.05) create smooth sequential reveal for list items
+- Staggered animations with small delays (index \* 0.05) create smooth sequential reveal for list items
 - Date formatting with locale options provides user-friendly display (month, day, year, hour, minute)
 - Mobile optimization requires clear visual hierarchy with appropriate spacing and touch targets
 
@@ -795,5 +798,42 @@ after each iteration and it's included in prompts for context.
 - Transaction List Pattern: Show date, type with icon, product name (for credits), amount, and running balance, use color coding for visual distinction, stagger animations for smooth reveal
 - Empty State Pattern: Icon centered in circle, descriptive message, actionable button (primary CTA) to guide users to next steps
 - Transaction Type Pattern: Use color-coded badges (blue for credits, green for payments) with appropriate icons (Package for credits, DollarSign for payments) for quick visual identification
+
+---
+
+## [2025-02-14] - tiendexApp-sfb.21
+
+- Enhanced customer detail page at /dashboard/customers/[id] with complete transaction history
+- Added transaction history list showing: date, type (credit/payment), product name (for credits), amount
+- Implemented running balance calculation after each transaction using useMemo for optimization
+- Transactions sorted by most recent first (via getTransactionsByCustomer with orderBy)
+- Added "Give Credit" button that navigates to quick credit entry with pre-selected customer (using query parameters)
+- "Record Payment" button (quick action) already existed, shows when customer has debt
+- Empty state with Package icon and CTA button when no transactions exist
+- Mobile-optimized with clear visual hierarchy (customer name and balance in header, transaction cards below)
+- Fixed duplicate type definitions in lib/firebase/types.ts
+- Enhanced Quick Credit Entry page to support customerId and customerName query parameters for pre-selection
+
+**Files changed:**
+
+- app/dashboard/customers/[id]/page.tsx - Added transaction history display with running balance, improved Give Credit button navigation
+- app/dashboard/transactions/new/page.tsx - Added support for pre-selecting customer via query parameters
+- lib/firebase/types.ts - Removed duplicate type definitions (Product, CreateProductInput, UpdateProductInput, Customer, CreateCustomerInput, UpdateCustomerInput, Transaction, CreateTransactionInput, Notification, CreateNotificationInput)
+
+**Learnings:**
+
+- Running balance calculation requires starting from current total debt and working backwards through chronological transactions
+- useMemo is essential for running balance calculation to avoid unnecessary recalculations when transactions or customer data changes
+- Query parameters are a clean way to pass pre-selection data between pages without modifying component props
+- Duplicate type definitions in TypeScript cause compile errors - must ensure each interface is defined only once
+- Transaction history should show "balance after" each transaction to help users understand their debt progression
+- Color-coded transaction amounts (red for credits, green for payments) provides immediate visual feedback
+- Empty states should include both an explanation and a clear CTA button to guide users to take action
+
+**Patterns discovered:**
+
+- Running Balance Pattern: Calculate running balance by starting from current total debt and iterating through transactions from most recent to oldest, subtracting credits and adding payments
+- Query Parameter Pre-selection Pattern: Pass data via URL query parameters to pre-select options on destination pages, use useSearchParams to read them
+- Transaction History Pattern: Show date, type (credit/payment), product name (for credits), amount, and running balance in card layout with color coding for transaction types
 
 ---

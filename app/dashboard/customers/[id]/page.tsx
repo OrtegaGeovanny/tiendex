@@ -145,7 +145,11 @@ export default function CustomerDetailPage() {
                 </h1>
                 <div className="flex gap-3">
                   <button
-                    onClick={() => router.push('/dashboard/transactions/new')}
+                    onClick={() =>
+                      router.push(
+                        `/dashboard/transactions/new?customerId=${customerId}&customerName=${encodeURIComponent(customer?.name || '')}`
+                      )
+                    }
                     className="inline-flex items-center px-4 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 min-h-[44px]"
                   >
                     <Plus className="w-5 h-5 mr-2" />
@@ -242,7 +246,11 @@ export default function CustomerDetailPage() {
                       their history here
                     </p>
                     <button
-                      onClick={() => router.push('/dashboard/transactions/new')}
+                      onClick={() =>
+                        router.push(
+                          `/dashboard/transactions/new?customerId=${customerId}&customerName=${encodeURIComponent(customer?.name || '')}`
+                        )
+                      }
                       className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       <Plus className="w-5 h-5 mr-2" />

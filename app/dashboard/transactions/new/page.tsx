@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/lib/contexts/AuthContext'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { getProducts } from '@/lib/firebase/products'
@@ -13,6 +13,10 @@ import { Search, Plus, Check, X } from 'lucide-react'
 function QuickCreditContent() {
   const { user } = useAuth()
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const customerId = searchParams.get('customerId')
+  const customerName = searchParams.get('customerName')
+
   const [products, setProducts] = useState<Product[]>([])
   const [customers, setCustomers] = useState<Customer[]>([])
   const [loading, setLoading] = useState(true)
@@ -26,7 +30,7 @@ function QuickCreditContent() {
   )
   const [quantity, setQuantity] = useState(1)
   const [productSearch, setProductSearch] = useState('')
-  const [customerSearch, setCustomerSearch] = useState('')
+  const [customerSearch, setCustomerSearch] = useState(customerName || '')
 
   const filteredProducts = products.filter(p =>
     p.name.toLowerCase().includes(productSearch.toLowerCase())
@@ -49,6 +53,16 @@ function QuickCreditContent() {
         ])
         setProducts(productsData)
         setCustomers(customersData)
+
+        if (customerId) {
+          const preselectedCustomer = customersData.find(
+            c => c.id === customerId
+          )
+          if (preselectedCustomer) {
+            setSelectedCustomer(preselectedCustomer)
+            setCustomerSearch(preselectedCustomer.name)
+          }
+        }
       } catch (err) {
         setError('Failed to load data')
         console.error(err)
@@ -58,7 +72,7 @@ function QuickCreditContent() {
     }
 
     loadData()
-  }, [user])
+  }, [user, customerId])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
