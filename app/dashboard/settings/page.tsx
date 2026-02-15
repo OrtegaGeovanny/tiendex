@@ -25,9 +25,9 @@ function SettingsContent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Configuración</h1>
         <p className="text-gray-600 mt-1">
-          Manage your account and preferences
+          Administra tu cuenta y preferencias
         </p>
       </motion.div>
 
@@ -38,14 +38,14 @@ function SettingsContent() {
         className="bg-white rounded-lg shadow"
       >
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Account</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Cuenta</h2>
         </div>
         <div className="p-6 space-y-4">
           <div className="flex items-start space-x-4">
             <UserIcon className="w-5 h-5 text-gray-400 mt-0.5" />
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700">
-                Email
+                Correo Electrónico
               </label>
               <p className="mt-1 text-gray-900">{user?.email}</p>
             </div>
@@ -60,20 +60,20 @@ function SettingsContent() {
         className="bg-white rounded-lg shadow"
       >
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Preferences</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Preferencias</h2>
         </div>
         <div className="p-6 space-y-4">
           <div className="flex items-start space-x-4">
             <Bell className="w-5 h-5 text-gray-400 mt-0.5" />
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700">
-                Notifications
+                Notificaciones
               </label>
               <p className="mt-1 text-gray-600">
-                Receive notifications for overdue payments and important updates
+                Recibe notificaciones de pagos vencidos y actualizaciones importantes
               </p>
               <button className="mt-2 text-indigo-600 hover:text-indigo-700 text-sm font-medium px-3 py-2 min-h-[44px] inline-flex items-center">
-                Configure notifications
+                Configurar notificaciones
               </button>
             </div>
           </div>
@@ -87,18 +87,18 @@ function SettingsContent() {
         className="bg-white rounded-lg shadow"
       >
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Security</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Seguridad</h2>
         </div>
         <div className="p-6 space-y-4">
           <div className="flex items-start space-x-4">
             <Shield className="w-5 h-5 text-gray-400 mt-0.5" />
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700">
-                Password
+                Contraseña
               </label>
-              <p className="mt-1 text-gray-600">Last changed recently</p>
+              <p className="mt-1 text-gray-600">Cambiada recientemente</p>
               <button className="mt-2 text-indigo-600 hover:text-indigo-700 text-sm font-medium px-3 py-2 min-h-[44px] inline-flex items-center">
-                Change password
+                Cambiar contraseña
               </button>
             </div>
           </div>

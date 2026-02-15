@@ -64,7 +64,7 @@ function QuickCreditContent() {
           }
         }
       } catch (err) {
-        setError('Failed to load data')
+        setError('Error al cargar datos')
         console.error(err)
       } finally {
         setLoading(false)
@@ -79,7 +79,7 @@ function QuickCreditContent() {
     setError(null)
 
     if (!selectedProduct || !selectedCustomer) {
-      setError('Please select both a product and a customer')
+      setError('Por favor selecciona un producto y un cliente')
       return
     }
 
@@ -101,7 +101,7 @@ function QuickCreditContent() {
       setSuccess(true)
       resetForm()
     } catch (err) {
-      setError('Failed to record transaction')
+      setError('Error al registrar transacción')
       console.error(err)
     } finally {
       setSubmitting(false)
@@ -132,9 +132,9 @@ function QuickCreditContent() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Quick Credit Entry</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Registro Rápido de Crédito</h1>
         <p className="mt-2 text-gray-600">
-          Record a customer&apos;s credit purchase in seconds
+          Registra la compra a crédito de un cliente en segundos
         </p>
       </div>
 
@@ -151,11 +151,11 @@ function QuickCreditContent() {
             <Check className="h-8 w-8 text-green-600" />
           </div>
           <h3 className="text-lg font-semibold text-green-900 mb-2">
-            Transaction Recorded!
+            ¡Transacción Registrada!
           </h3>
           <p className="text-green-700 mb-6">
-            {selectedCustomer?.name} owes ${totalAmount.toFixed(2)} for{' '}
-            {quantity} {quantity === 1 ? 'unit' : 'units'} of{' '}
+            {selectedCustomer?.name} debe ${totalAmount.toFixed(2)} por{' '}
+            {quantity} {quantity === 1 ? 'unidad' : 'unidades'} de{' '}
             {selectedProduct?.name}
           </p>
           <div className="flex justify-center gap-3">
@@ -164,13 +164,13 @@ function QuickCreditContent() {
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <Plus className="h-5 w-5 mr-2" />
-              Record Another
+              Registrar Otra
             </button>
             <button
               onClick={() => router.push('/dashboard')}
               className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Back to Dashboard
+              Volver al Panel
             </button>
           </div>
         </div>
@@ -182,7 +182,7 @@ function QuickCreditContent() {
                 htmlFor="product"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Product
+                Producto
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -193,7 +193,7 @@ function QuickCreditContent() {
                   type="text"
                   value={productSearch}
                   onChange={e => setProductSearch(e.target.value)}
-                  placeholder="Search products..."
+                  placeholder="Buscar productos..."
                   className="pl-10 block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
                 />
               </div>
@@ -226,7 +226,7 @@ function QuickCreditContent() {
                 htmlFor="customer"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Customer
+                Cliente
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -237,7 +237,7 @@ function QuickCreditContent() {
                   type="text"
                   value={customerSearch}
                   onChange={e => setCustomerSearch(e.target.value)}
-                  placeholder="Search customers..."
+                  placeholder="Buscar clientes..."
                   className="pl-10 block w-full px-3 py-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg"
                 />
               </div>
@@ -276,7 +276,7 @@ function QuickCreditContent() {
                 htmlFor="quantity"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Quantity
+                Cantidad
               </label>
               <input
                 id="quantity"
@@ -291,7 +291,7 @@ function QuickCreditContent() {
             {selectedProduct && (
               <div className="bg-gray-50 rounded-lg p-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Total Amount</span>
+                  <span className="text-gray-600">Monto Total</span>
                   <span className="text-2xl font-bold text-gray-900">
                     ${totalAmount.toFixed(2)}
                   </span>
@@ -305,7 +305,7 @@ function QuickCreditContent() {
             disabled={submitting || !selectedProduct || !selectedCustomer}
             className="w-full py-4 px-6 border border-transparent text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {submitting ? 'Recording...' : 'Record Credit'}
+            {submitting ? 'Registrando...' : 'Registrar Crédito'}
           </button>
         </form>
       )}
@@ -325,7 +325,7 @@ export default function QuickCreditPage() {
                   onClick={() => window.history.back()}
                   className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors mr-4"
                 >
-                  ← Back
+                  ← Volver
                 </button>
                 <h1 className="text-xl font-bold text-gray-900">TiendexApp</h1>
               </div>

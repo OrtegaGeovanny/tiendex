@@ -54,36 +54,36 @@ function DashboardContent() {
   return (
     <>
       <div className="bg-white rounded-lg shadow p-6 mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome back!</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">¡Bienvenido de nuevo!</h1>
         <p className="text-gray-600">
-          You are successfully logged in as {user?.email}
+          Has iniciado sesión exitosamente como {user?.email}
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-2">
-            Quick Actions
+            Acciones Rápidas
           </h2>
           <div className="space-y-3">
             <Link
               href="/dashboard/customers/new"
               className="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-3 rounded-lg font-medium transition-colors"
             >
-              Add Customer
+              Agregar Cliente
             </Link>
             <Link
               href="/dashboard/transactions/new"
               className="block w-full text-center bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium transition-colors"
             >
-              Record Transaction
+              Registrar Transacción
             </Link>
           </div>
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-2">
-            Notifications
+            Notificaciones
           </h2>
           <div className="flex items-center justify-center">
             <button
@@ -99,7 +99,7 @@ function DashboardContent() {
             </button>
           </div>
           <p className="text-center text-sm text-gray-600 mt-2">
-            {unreadCount} unread notification{unreadCount !== 1 ? 's' : ''}
+            {unreadCount} notificación{unreadCount !== 1 ? 'es' : ''} sin leer
           </p>
         </div>
       </div>
