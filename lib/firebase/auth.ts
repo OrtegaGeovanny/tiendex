@@ -2,14 +2,34 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
+  User,
 } from 'firebase/auth'
 import { getFirebaseAuth } from './client'
 import { getFirebaseErrorMessage } from './firestore'
+import { createStore } from './stores'
 
-export async function signUp(email: string, password: string): Promise<void> {
+export async function signUp(
+  email: string,
+  password: string,
+  storeName?: string | null,
+  user?: User | null
+): Promise<void> {
   try {
     const auth = getFirebaseAuth()
-    await createUserWithEmailAndPassword(auth, email, password)
+    let authUser = user
+
+    if (!authUser) {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      authUser = userCredential.user
+    }
+
+    if (authUser) {
+      await createStore(authUser.uid, { name: storeName || null })
+    }
   } catch (error) {
     console.error('Error signing up:', error)
     throw new Error(getFirebaseErrorMessage(error))
