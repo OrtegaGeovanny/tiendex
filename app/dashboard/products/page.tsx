@@ -147,10 +147,10 @@ export default function ProductsPage() {
                 >
                   ← Volver
                 </button>
-                <h1 className="text-xl font-bold text-gray-900">TiendexApp</h1>
+                <h1 className="text-xl font-bold text-gray-900">Tiendex</h1>
               </div>
             </div>
-          </div>
+          </div>  
         </nav>
 
         <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -161,4 +161,4 @@ export default function ProductsPage() {
       </div>
     </ProtectedRoute>
   )
-}
+}   

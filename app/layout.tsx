@@ -3,7 +3,7 @@ import { AuthProvider } from '@/lib/contexts/AuthContext'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'TiendexApp',
+  title: 'Tiendex',
   description: 'Credit & Inventory Management for Small Latin American Stores',
 }
 

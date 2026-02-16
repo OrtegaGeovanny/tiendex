@@ -35,7 +35,7 @@ export default function Features() {
             Todo lo que necesitas para gestionar tu negocio
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            TiendexApp te ofrece herramientas simples y poderosas para llevar el
+            Tiendex te ofrece herramientas simples y poderosas para llevar el
             control de tu tienda
           </p>
         </div>

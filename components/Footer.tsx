@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="space-y-4">
             <h3 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
-              TiendexApp
+              Tiendex
             </h3>
             <p className="text-sm">
               Olvida el cuaderno. Digitaliza tu negocio y gestiona tu
@@ -104,7 +104,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-gray-800 dark:border-gray-900">
           <p className="text-center text-sm">
-            © {currentYear} TiendexApp. Todos los derechos reservados.
+            © {currentYear} Tiendex. Todos los derechos reservados.
           </p>
         </div>
       </div>

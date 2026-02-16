@@ -312,7 +312,7 @@ export default function EditProductPage() {
                 >
                   <ArrowLeft className="h-5 w-5" />
                 </button>
-                <h1 className="text-xl font-bold text-gray-900">TiendexApp</h1>
+                <h1 className="text-xl font-bold text-gray-900">Tiendex</h1>
               </div>
             </div>
           </div>

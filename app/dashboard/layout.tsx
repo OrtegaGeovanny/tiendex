@@ -99,7 +99,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
             <Link href="/dashboard" className="flex items-center space-x-2">
               <Store className="w-8 h-8 text-indigo-600" />
               <span className="text-xl font-bold text-gray-900">
-                TiendexApp
+                Tiendex
               </span>
             </Link>
           </div>
@@ -157,7 +157,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
             <Link href="/dashboard" className="flex items-center space-x-2">
               <Store className="w-6 h-6 text-indigo-600" />
               <span className="text-lg font-bold text-gray-900">
-                TiendexApp
+                Tiendex
               </span>
             </Link>
           </div>
@@ -275,7 +275,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
                 <Link href="/dashboard" className="flex items-center space-x-2">
                   <Store className="w-6 h-6 text-indigo-600" />
                   <span className="text-lg font-bold text-gray-900">
-                    TiendexApp
+                    Tiendex
                   </span>
                 </Link>
                 <button
