@@ -24,13 +24,6 @@ Para la ejecución de las tareas de desarrollo, utilizamos **z.ai** con el model
 - Implementación automatizada de funcionalidades
 - Optimización del proceso de desarrollo
 
-## Estructura del Proyecto
-
-```
-tiendex/
-├── tiendexApp/          # Aplicación principal
-└── README.md            # Este archivo
-```
 
 ## Tecnologías Principales
 
